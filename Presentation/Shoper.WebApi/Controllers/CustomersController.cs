@@ -23,7 +23,7 @@ namespace Shoper.WebApi.Controllers
             return Ok(values);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GEtByIdCustomer(int id)
+        public async Task<IActionResult> GetByIdCustomer(int id)
         {
             var values = await _services.GetByIdCustomerAsync(id);
             return Ok(values);
