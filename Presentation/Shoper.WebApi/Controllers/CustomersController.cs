@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shoper.Application.Dtos.CustomerDtos;
 using Shoper.Application.Usecasess.CustomerServices;
+using Shoper.Persistence.Context;
 
 namespace Shoper.WebApi.Controllers
 {
@@ -10,10 +11,12 @@ namespace Shoper.WebApi.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerServices _services;
+        private readonly AppDbContext _dbContext;
 
-        public CustomersController(ICustomerServices services)
+        public CustomersController(ICustomerServices services, AppDbContext dbContext)
         {
             _services = services;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -45,6 +48,13 @@ namespace Shoper.WebApi.Controllers
         {
             await _services.DeleteCustomerAsync(id);
             return Ok("Müşteri başarılı bir şekilde silindi.");
+        }
+
+        [HttpGet("Deneme")]
+        public async Task<IActionResult> GetAllProcedure()
+        {
+            var values = _dbContext.GetAllCustomer();
+            return Ok(values);
         }
     }
 }

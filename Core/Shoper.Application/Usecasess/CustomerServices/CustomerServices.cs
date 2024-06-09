@@ -43,7 +43,7 @@ namespace Shoper.Application.Usecasess.CustomerServices
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
-                Orders = x.Orders,
+                //Orders = x.Orders,
             }).ToList();
         }
 
@@ -56,7 +56,7 @@ namespace Shoper.Application.Usecasess.CustomerServices
                 FirstName = values.FirstName,
                 LastName = values.LastName,
                 Email = values.Email,
-                Orders = values.Orders,
+                //Orders = values.Orders,
             };
         }
 

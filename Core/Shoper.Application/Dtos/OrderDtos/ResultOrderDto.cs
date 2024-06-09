@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Shoper.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shoper.Domain.Entities
+namespace Shoper.Application.Dtos.OrderDtos
 {
-    public class Order
+    public class ResultOrderDto
     {
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }

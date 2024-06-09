@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,39 +21,52 @@ namespace Shoper.Persistence.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //public List<Customer> GetAllCustomer()
+        //{
+        //    return Customers.FromSqlRaw("EXEC dbo.getallcustomer").ToList();
+        //}
+        //public List<Customer> GetAllCustomerFiltre(int userId, DateTime startDate, DateTime endDate)
+        //{
+        //    var userIdParam = new SqlParameter("@UserId", userId);
+        //    var startDateParam = new SqlParameter("@StartDate", startDate);
+        //    var endDateParam = new SqlParameter("@EndDate", endDate);
 
-            modelBuilder.Entity<Category>()
-                .HasMany(c => c.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
+        //    return Customers.FromSqlRaw("EXEC dbo.getallcustomer @UserId, @StartDate, @EndDate", userIdParam, startDateParam, endDateParam).ToList();
+        //}
 
-            modelBuilder.Entity<Product>()
-                .HasOne(p => p.Category)
-                .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CategoryId);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>()
-                .HasMany(c => c.Orders)
-                .WithOne(o => o.Customer)
-                .HasForeignKey(o => o.CustomerId);
+        //    modelBuilder.Entity<Category>()
+        //        .HasMany(c => c.Products)
+        //        .WithOne(p => p.Category)
+        //        .HasForeignKey(p => p.CategoryId);
 
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Customer)
-                .WithMany(c => c.Orders)
-                .HasForeignKey(o => o.CustomerId);
+        //    modelBuilder.Entity<Product>()
+        //        .HasOne(p => p.Category)
+        //        .WithMany(c => c.Products)
+        //        .HasForeignKey(p => p.CategoryId);
 
-            modelBuilder.Entity<Order>()
-                .HasMany(o => o.OrderItems)
-                .WithOne(oi => oi.Order)
-                .HasForeignKey(oi => oi.OrderId);
+        //    modelBuilder.Entity<Customer>()
+        //        .HasMany(c => c.Orders)
+        //        .WithOne(o => o.Customer)
+        //        .HasForeignKey(o => o.CustomerId);
 
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Order)
-                .WithMany(o => o.OrderItems)
-                .HasForeignKey(oi => oi.OrderId);
-        }
+        //    modelBuilder.Entity<Order>()
+        //        .HasOne(o => o.Customer)
+        //        .WithMany(c => c.Orders)
+        //        .HasForeignKey(o => o.CustomerId);
+
+        //    modelBuilder.Entity<Order>()
+        //        .HasMany(o => o.OrderItems)
+        //        .WithOne(oi => oi.Order)
+        //        .HasForeignKey(oi => oi.OrderId);
+
+        //    modelBuilder.Entity<OrderItem>()
+        //        .HasOne(oi => oi.Order)
+        //        .WithMany(o => o.OrderItems)
+        //        .HasForeignKey(oi => oi.OrderId);
+        //}
     }
 }
