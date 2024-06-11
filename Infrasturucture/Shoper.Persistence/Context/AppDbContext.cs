@@ -34,39 +34,5 @@ namespace Shoper.Persistence.Context
         //    return Customers.FromSqlRaw("EXEC dbo.getallcustomer @UserId, @StartDate, @EndDate", userIdParam, startDateParam, endDateParam).ToList();
         //}
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<Category>()
-        //        .HasMany(c => c.Products)
-        //        .WithOne(p => p.Category)
-        //        .HasForeignKey(p => p.CategoryId);
-
-        //    modelBuilder.Entity<Product>()
-        //        .HasOne(p => p.Category)
-        //        .WithMany(c => c.Products)
-        //        .HasForeignKey(p => p.CategoryId);
-
-        //    modelBuilder.Entity<Customer>()
-        //        .HasMany(c => c.Orders)
-        //        .WithOne(o => o.Customer)
-        //        .HasForeignKey(o => o.CustomerId);
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasOne(o => o.Customer)
-        //        .WithMany(c => c.Orders)
-        //        .HasForeignKey(o => o.CustomerId);
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasMany(o => o.OrderItems)
-        //        .WithOne(oi => oi.Order)
-        //        .HasForeignKey(oi => oi.OrderId);
-
-        //    modelBuilder.Entity<OrderItem>()
-        //        .HasOne(oi => oi.Order)
-        //        .WithMany(o => o.OrderItems)
-        //        .HasForeignKey(oi => oi.OrderId);
-        //}
     }
 }

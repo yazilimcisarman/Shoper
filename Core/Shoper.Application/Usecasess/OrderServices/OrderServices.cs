@@ -1,4 +1,5 @@
 ﻿using Shoper.Application.Dtos.OrderDtos;
+using Shoper.Application.Dtos.OrderItemDtos;
 using Shoper.Application.Interfaces;
 using Shoper.Domain.Entities;
 using System;
@@ -13,15 +14,17 @@ namespace Shoper.Application.Usecasess.OrderServices
     public class OrderServices : IOrderServices
     {
         private readonly IRepository<Order> _repository;
+        private readonly IRepository<OrderItem> _repositoryOrderItem;
 
-        public OrderServices(IRepository<Order> repository)
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem)
         {
             _repository = repository;
+            _repositoryOrderItem = repositoryOrderItem;
         }
 
         public async Task CreateOrderAsync(CreateOrderDto model)
         {
-            await _repository.CreateAsync(new Order
+            var order = new Order
             {
                 OrderDate = model.OrderDate,
                 TotalAmount = model.TotalAmount,
@@ -29,8 +32,20 @@ namespace Shoper.Application.Usecasess.OrderServices
                 BillingAdress = model.BillingAdress,
                 ShippingAdress = model.ShippingAdress,
                 PaymentMethod = model.PaymentMethod,
-                CustomerId = model.CustomerId,  
-            });
+                CustomerId = model.CustomerId,
+            };
+            await _repository.CreateAsync(order);
+
+            foreach (var item in model.OrderItems)
+            {
+                await _repositoryOrderItem.CreateAsync(new OrderItem
+                {
+                    OrderId = order.OrderId,
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.TotalPrice,
+                });
+            }
         }
 
         public async Task DeleteOrderAsync(int id)
@@ -42,6 +57,7 @@ namespace Shoper.Application.Usecasess.OrderServices
         public async Task<List<ResultOrderDto>> GetAllOrderAsync()
         {
             var values = await _repository.GetAllAsync();
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
             return values.Select(x => new ResultOrderDto
             {
                 OrderId = x.OrderId,
@@ -52,6 +68,14 @@ namespace Shoper.Application.Usecasess.OrderServices
                 ShippingAdress = x.ShippingAdress,
                 PaymentMethod = x.PaymentMethod,
                 CustomerId = x.CustomerId,
+                OrderItems = x.OrderItems.Select(oi => new ResultOrderItemDto
+                {
+                    OrderId = oi.OrderId,
+                    ProductId = oi.ProductId,
+                    Quantity = oi.Quantity,
+                    TotalPrice = oi.TotalPrice,
+                    OrderItemId = oi.OrderItemId,
+                }).ToList()
             }).ToList();
         }
 

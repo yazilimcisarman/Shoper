@@ -50,11 +50,11 @@ namespace Shoper.WebApi.Controllers
             return Ok("Müşteri başarılı bir şekilde silindi.");
         }
 
-        [HttpGet("Deneme")]
-        public async Task<IActionResult> GetAllProcedure()
-        {
-            var values = _dbContext.GetAllCustomer();
-            return Ok(values);
-        }
+        //[HttpGet("Deneme")]
+        //public async Task<IActionResult> GetAllProcedure()
+        //{
+        //    var values = _dbContext.GetAllCustomer();
+        //    return Ok(values);
+        //}
     }
 }
