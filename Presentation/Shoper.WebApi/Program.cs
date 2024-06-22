@@ -1,4 +1,6 @@
 using Shoper.Application.Interfaces;
+using Shoper.Application.Usecasess.CartItemSevices;
+using Shoper.Application.Usecasess.CartServices;
 using Shoper.Application.Usecasess.CategoryServices;
 using Shoper.Application.Usecasess.CustomerServices;
 using Shoper.Application.Usecasess.OrderItemServices;
@@ -16,6 +18,8 @@ builder.Services.AddScoped<ICustomerServices, CustomerServices>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
