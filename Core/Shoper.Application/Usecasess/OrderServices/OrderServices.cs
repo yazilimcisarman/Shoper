@@ -29,7 +29,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderDate = model.OrderDate,
                 TotalAmount = model.TotalAmount,
                 OrderStatus = model.OrderStatus,
-                BillingAdress = model.BillingAdress,
+                //BillingAdress = model.BillingAdress,
                 ShippingAdress = model.ShippingAdress,
                 PaymentMethod = model.PaymentMethod,
                 CustomerId = model.CustomerId,
@@ -64,7 +64,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderDate = x.OrderDate,
                 TotalAmount = x.TotalAmount,
                 OrderStatus = x.OrderStatus,
-                BillingAdress = x.BillingAdress,
+                //BillingAdress = x.BillingAdress,
                 ShippingAdress = x.ShippingAdress,
                 PaymentMethod = x.PaymentMethod,
                 CustomerId = x.CustomerId,
@@ -75,7 +75,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                     Quantity = oi.Quantity,
                     TotalPrice = oi.TotalPrice,
                     OrderItemId = oi.OrderItemId,
-                }).ToList()
+                }).ToList(),
             }).ToList();
         }
 
@@ -88,7 +88,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderDate = values.OrderDate,
                 TotalAmount = values.TotalAmount,
                 OrderStatus = values.OrderStatus,
-                BillingAdress = values.BillingAdress,
+                //BillingAdress = values.BillingAdress,
                 ShippingAdress = values.ShippingAdress,
                 PaymentMethod = values.PaymentMethod,
                 CustomerId = values.CustomerId,
@@ -105,7 +105,7 @@ namespace Shoper.Application.Usecasess.OrderServices
             values.ShippingAdress = model.ShippingAdress;
             values.PaymentMethod = model.PaymentMethod;
             values.CustomerId = model.CustomerId;
-            values.BillingAdress = model.BillingAdress;
+            //values.BillingAdress = model.BillingAdress;
             await _repository.UpdateAsync(values);
         }
     }
