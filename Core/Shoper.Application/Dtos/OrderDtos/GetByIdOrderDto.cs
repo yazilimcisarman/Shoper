@@ -1,4 +1,5 @@
-﻿using Shoper.Domain.Entities;
+﻿using Shoper.Application.Dtos.OrderItemDtos;
+using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace Shoper.Application.Dtos.OrderDtos
         public string OrderStatus { get; set; }
         //public string BillingAdress { get; set; }
         public string ShippingAdress { get; set; }
-        public string PaymentMethod { get; set; }
+        //public string PaymentMethod { get; set; }
         public int CustomerId { get; set; }
-        //public Customer Customer { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<ResultOrderItemDto> OrderItems { get; set; }
     }
 }

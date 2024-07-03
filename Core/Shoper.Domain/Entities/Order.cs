@@ -14,9 +14,9 @@ namespace Shoper.Domain.Entities
         public string OrderStatus { get; set; }
         //public string BillingAdress { get; set; }
         public string ShippingAdress { get; set; }
-        public string PaymentMethod { get; set; }
+        //public string PaymentMethod { get; set; }
         public int CustomerId { get; set; }
-        //public Customer Customer { get; set; }
+        public Customer Customer { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

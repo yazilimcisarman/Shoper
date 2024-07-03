@@ -66,7 +66,7 @@ namespace Shoper.Application.Usecasess.OrderItemServices
         public async Task UpdateOrderItemAsync(UpdateOrderItemDto model)
         {
             var values = await _repository.GetByIdAsync(model.OrderItemId);
-            values.OrderId = model.OrderId;
+            //values.OrderId = model.OrderId;
             values.Quantity = model.Quantity;
             values.TotalPrice = model.TotalPrice;
             values.ProductId = model.ProductId;

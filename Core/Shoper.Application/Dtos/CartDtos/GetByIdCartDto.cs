@@ -1,4 +1,5 @@
-﻿using Shoper.Domain.Entities;
+﻿using Shoper.Application.Dtos.CartItemDtos;
+using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace Shoper.Application.Dtos.CartDtos
         public int CartId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? CustomerId { get; set; }
-        //public Customer? Customer { get; set; }
-        public ICollection<CartItem> CartItems { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<ResultCartItemDto> CartItems { get; set; }
     }
 }

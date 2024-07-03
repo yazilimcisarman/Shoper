@@ -49,7 +49,12 @@ namespace Shoper.Application.Usecasess.CartItemSevices
             }).ToList();
         }
 
-        public async Task<GetByIdCartItemDto> GetByIdCartItemAsync(int id)
+		public Task<List<ResultCartItemDto>> GetByCartIdCartItemAsync(int cartId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<GetByIdCartItemDto> GetByIdCartItemAsync(int id)
         {
             var cartItem = await _repository.GetByIdAsync(id);
             return new GetByIdCartItemDto 
@@ -68,7 +73,7 @@ namespace Shoper.Application.Usecasess.CartItemSevices
             cartItem.Quantity = model.Quantity;
             cartItem.TotalPrice = model.TotalPrice;
             cartItem.ProductId = model.ProductId;
-            cartItem.CartId = model.CartId;
+            //cartItem.CartId = model.CartId;
             await _repository.UpdateAsync(cartItem);
         }
     }
