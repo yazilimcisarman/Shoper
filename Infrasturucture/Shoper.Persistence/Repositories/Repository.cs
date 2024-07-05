@@ -36,7 +36,7 @@ namespace Shoper.Persistence.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-		public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter)
+        public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter)
 		{
 			return await _context.Set<T>().SingleOrDefaultAsync(filter);
 		}
@@ -44,6 +44,11 @@ namespace Shoper.Persistence.Repositories
 		public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<List<T>> GetTakeAsync(int sayi)
+        {
+            return await _context.Set<T>().Take(sayi).ToListAsync();
         }
 
         public async Task UpdateAsync(T entity)

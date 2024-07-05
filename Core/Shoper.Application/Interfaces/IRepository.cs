@@ -15,5 +15,6 @@ namespace Shoper.Application.Interfaces
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
 		Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
+        Task<List<T>> GetTakeAsync(int sayi);
 	}
 }

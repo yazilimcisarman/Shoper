@@ -85,7 +85,7 @@ namespace Shoper.Persistence.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categoeries");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Shoper.Domain.Entities.Customer", b =>
