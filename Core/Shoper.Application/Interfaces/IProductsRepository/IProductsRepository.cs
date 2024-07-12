@@ -11,5 +11,7 @@ namespace Shoper.Application.Interfaces.IProductsRepository
     public interface IProductsRepository
     {
         Task<List<Product>> GetProductByCategory(int categoryId);
+        Task<List<Product>> GetProductByPriceFilter(decimal minprice, decimal maxprice);
+        Task<List<Product>> GetProductBySearch(string search);
     }
 }

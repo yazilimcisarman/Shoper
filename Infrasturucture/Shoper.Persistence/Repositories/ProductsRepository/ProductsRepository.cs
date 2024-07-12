@@ -24,5 +24,15 @@ namespace Shoper.Persistence.Repositories.ProductsRepository
         {
             return await _context.Products.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
+
+        public async Task<List<Product>> GetProductByPriceFilter(decimal minprice, decimal maxprice)
+        {
+            return await _context.Products.Where(x => x.Price >= minprice && x.Price <= maxprice).ToListAsync();
+        }
+
+        public async Task<List<Product>> GetProductBySearch(string search)
+        {
+            return await _context.Products.Where(x => x.ProductName.Contains(search) || x.Description.Contains(search)).ToListAsync();
+        }
     }
 }

@@ -89,6 +89,36 @@ namespace Shoper.Application.Usecasess.ProductServices
             }).ToList();
         }
 
+        public async Task<List<ResultProductDto>> GetProductByPrice(decimal minprice, decimal maxprice)
+        {
+            var values = await _productsRepository.GetProductByPriceFilter(minprice, maxprice);
+            return values.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
+        }
+
+        public async Task<List<ResultProductDto>> GetProductBySearch(string search)
+        {
+            var values = await _productsRepository.GetProductBySearch(search);
+            return values.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
+        }
+
         public async Task<List<ResultProductDto>> GetProductTake(int sayi)
         {
             var values = await _repository.GetTakeAsync(sayi);
