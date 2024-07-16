@@ -38,5 +38,10 @@ namespace Shoper.WebApp.Controllers
             var value = await _productService.GetProductBySearch(search);
             return View(value);
         }
+        public async Task<IActionResult> Detail(int id)
+        {
+            var value = await _productService.GetByIdProductAsync(id);
+            return View(value);
+        }
     }
 }

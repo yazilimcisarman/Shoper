@@ -1,0 +1,51 @@
+﻿ProductName	ImageUrl
+Telefon 128gb	https://images.unsplash.com/photo-1587043280264-962ba66c05fc?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+Laptop 256gb SSD	https://images.pexels.com/photos/5700334/pexels-photo-5700334.jpeg?auto=compress&cs=tinysrgb&w=600
+Smartwatch	https://images.pexels.com/photos/1682821/pexels-photo-1682821.jpeg?auto=compress&cs=tinysrgb&w=600
+Bluetooth Kulaklık	https://images.pexels.com/photos/8004099/pexels-photo-8004099.jpeg?auto=compress&cs=tinysrgb&w=600
+HD Televizyon	https://images.pexels.com/photos/15672527/pexels-photo-15672527/free-photo-of-televizyon-tv-naturmort-kar-yagisli.jpeg?auto=compress&cs=tinysrgb&w=600
+Kadın Elbisesi	https://images.pexels.com/photos/291759/pexels-photo-291759.jpeg?auto=compress&cs=tinysrgb&w=600
+Erkek Tişört	https://images.pexels.com/photos/4066288/pexels-photo-4066288.jpeg?auto=compress&cs=tinysrgb&w=600
+Kadın Çantası	https://images.pexels.com/photos/23070928/pexels-photo-23070928/free-photo-of-kadin-sari-canta-kadin-cantasi.jpeg?auto=compress&cs=tinysrgb&w=600
+Erkek Ayakkabı	https://images.pexels.com/photos/5496580/pexels-photo-5496580.jpeg?auto=compress&cs=tinysrgb&w=600
+Kadın Ceket	https://images.pexels.com/photos/27056103/pexels-photo-27056103/free-photo-of-gunes-gozlugu-kadin-ceket-portre-modu.jpeg?auto=compress&cs=tinysrgb&w=600
+Oturma Grubu	https://images.pexels.com/photos/7533755/pexels-photo-7533755.jpeg?auto=compress&cs=tinysrgb&w=600
+Yemek Masası	https://images.pexels.com/photos/5716703/pexels-photo-5716703.jpeg?auto=compress&cs=tinysrgb&w=600
+Gardırop	https://images.pexels.com/photos/5705490/pexels-photo-5705490.jpeg?auto=compress&cs=tinysrgb&w=600
+Kanepe	https://images.pexels.com/photos/3757055/pexels-photo-3757055.jpeg?auto=compress&cs=tinysrgb&w=600
+Yatak	https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=600
+Roman Kitap	https://images.pexels.com/photos/4170629/pexels-photo-4170629.jpeg?auto=compress&cs=tinysrgb&w=600
+Bilim Kurgu Kitap	https://images.pexels.com/photos/5239564/pexels-photo-5239564.jpeg?auto=compress&cs=tinysrgb&w=600
+Kişisel Gelişim Kitap	https://images.pexels.com/photos/22710952/pexels-photo-22710952/free-photo-of-incil-okumak.jpeg?auto=compress&cs=tinysrgb&w=600
+Çocuk Kitabı	https://images.pexels.com/photos/4964345/pexels-photo-4964345.jpeg?auto=compress&cs=tinysrgb&w=600
+Sanat Kitap	https://images.pexels.com/photos/6373305/pexels-photo-6373305.jpeg?auto=compress&cs=tinysrgb&w=600
+Lego Seti	https://images.pexels.com/photos/7750677/pexels-photo-7750677.jpeg?auto=compress&cs=tinysrgb&w=600
+Oyuncak Araba	https://images.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg?auto=compress&cs=tinysrgb&w=600
+Puzzle	https://images.pexels.com/photos/1586951/pexels-photo-1586951.jpeg?auto=compress&cs=tinysrgb&w=600
+Peluş Oyuncak	https://images.pexels.com/photos/6182910/pexels-photo-6182910.jpeg?auto=compress&cs=tinysrgb&w=600
+Masa Oyunu	https://images.pexels.com/photos/278918/pexels-photo-278918.jpeg?auto=compress&cs=tinysrgb&w=600
+Koşu Ayakkabısı	https://images.pexels.com/photos/7298678/pexels-photo-7298678.jpeg?auto=compress&cs=tinysrgb&w=600
+Yoga Matı	https://images.pexels.com/photos/4325439/pexels-photo-4325439.jpeg?auto=compress&cs=tinysrgb&w=600
+Dambıl Seti	https://images.pexels.com/photos/260352/pexels-photo-260352.jpeg?auto=compress&cs=tinysrgb&w=600
+Kamp Çadırı	https://images.pexels.com/photos/45241/tent-camp-night-star-45241.jpeg?auto=compress&cs=tinysrgb&w=600
+Dağ Bisikleti	https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=600
+Ruj	https://images.pexels.com/photos/3060257/pexels-photo-3060257.jpeg?auto=compress&cs=tinysrgb&w=600
+Fondöten	https://images.pexels.com/photos/5476580/pexels-photo-5476580.jpeg?auto=compress&cs=tinysrgb&w=600
+Göz Farı Paleti	https://images.pexels.com/photos/7290174/pexels-photo-7290174.jpeg?auto=compress&cs=tinysrgb&w=600
+Oje Seti	https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=600
+Allık	https://images.pexels.com/photos/354962/pexels-photo-354962.jpeg?auto=compress&cs=tinysrgb&w=600
+Not Defteri	https://images.pexels.com/photos/268349/pexels-photo-268349.jpeg?auto=compress&cs=tinysrgb&w=600
+Tükenmez Kalem	https://images.pexels.com/photos/5594347/pexels-photo-5594347.jpeg?auto=compress&cs=tinysrgb&w=600
+Ajanda	https://images.pexels.com/photos/1558691/pexels-photo-1558691.jpeg?auto=compress&cs=tinysrgb&w=600
+Masa Lambası	https://images.pexels.com/photos/4884118/pexels-photo-4884118.jpeg?auto=compress&cs=tinysrgb&w=600
+Dosya Klasörü	https://images.pexels.com/photos/4792285/pexels-photo-4792285.jpeg?auto=compress&cs=tinysrgb&w=600
+Oto Koltuğu	https://images.pexels.com/photos/4991566/pexels-photo-4991566.jpeg?auto=compress&cs=tinysrgb&w=600
+Navigasyon Cihazı	https://images.pexels.com/photos/4542998/pexels-photo-4542998.jpeg?auto=compress&cs=tinysrgb&w=600
+Araç Şarj Cihazı	https://images.pexels.com/photos/9800000/pexels-photo-9800000.jpeg?auto=compress&cs=tinysrgb&w=600
+Araba Parfümü	https://images.pexels.com/photos/4239008/pexels-photo-4239008.jpeg?auto=compress&cs=tinysrgb&w=600
+Araç Paspası	https://images.pexels.com/photos/2950003/pexels-photo-2950003.jpeg?auto=compress&cs=tinysrgb&w=600
+Vitamin Takviyesi	https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600
+Cilt Bakım Kremi	https://images.pexels.com/photos/286951/pexels-photo-286951.jpeg?auto=compress&cs=tinysrgb&w=600
+Ağrı Kesici Jel	https://images.pexels.com/photos/4058107/pexels-photo-4058107.jpeg?auto=compress&cs=tinysrgb&w=600
+Saç Serumu	https://images.pexels.com/photos/19717725/pexels-photo-19717725/free-photo-of-siseler-temizlik-hijyen-urunler.jpeg?auto=compress&cs=tinysrgb&w=600
+Göz Damlası	https://images.pexels.com/photos/6387845/pexels-photo-6387845.jpeg?auto=compress&cs=tinysrgb&w=600
