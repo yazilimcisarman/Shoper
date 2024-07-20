@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="/Product/Detail?id=@item.ProductId" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Detay</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a href="#" class="btn btn-sm text-dark p-0" onclick="addToCart(@item.ProductId,@item.Price)"><i class="fas fa-shopping-cart text-primary mr-1"></i>Sepete Ekle</a>
                     </div>
                 </div>
             </div>
@@ -82,4 +82,29 @@
     </div>
 </div>
 <!-- Subscribe End -->
-
+<script>
+    function addToCart(id,totalprice) {
+        const data = {
+            ProductId: id,  
+            Quantity: 1 ,
+            TotalPrice: totalprice
+        };
+        console.log(data);
+        $.ajax({
+            url: '/Cart/AddToCartItem',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.success) {
+                    alert('Ürün sepete eklendi!');
+                } else {
+                    alert('Bir hata oluştu: ' + response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Bir hata oluştu: ' + error);
+            }
+        });
+    }
+</script>

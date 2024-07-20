@@ -1,5 +1,7 @@
 ﻿using Shoper.Application.Dtos.CartItemDtos;
 using Shoper.Application.Interfaces;
+using Shoper.Application.Interfaces.ICartItemsRepository;
+using Shoper.Application.Interfaces.ICartsRepository;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,25 @@ namespace Shoper.Application.Usecasess.CartItemSevices
     public class CartItemService : ICartItemService
     {
         private readonly IRepository<CartItem> _repository;
+        private readonly ICartItemsRepository _cartItemsRepository;
 
-        public CartItemService(IRepository<CartItem> repository)
+        public CartItemService(IRepository<CartItem> repository, ICartItemsRepository cartItemsRepository)
         {
             _repository = repository;
+            _cartItemsRepository = cartItemsRepository;
+        }
+
+        public async Task<bool> CheckCartItems(int cartId, int productId)
+        {
+            var value = await _cartItemsRepository.CheckCartItemAsync(cartId, productId);
+            return value;
         }
 
         public async Task CreateCartItemAsync(CreateCartItemDto model)
         {
             var cartItem = new CartItem 
             {
-                //CartId = model.CartId,
+                CartId = model.CartId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
                 TotalPrice = model.TotalPrice
@@ -75,6 +85,11 @@ namespace Shoper.Application.Usecasess.CartItemSevices
             cartItem.ProductId = model.ProductId;
             //cartItem.CartId = model.CartId;
             await _repository.UpdateAsync(cartItem);
+        }
+
+        public async Task UpdateQuantity(int cartId, int productId, int quantity)
+        {
+            await _cartItemsRepository.UpdateQuantity(cartId,productId,quantity);
         }
     }
 }

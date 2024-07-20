@@ -2,6 +2,7 @@
 using Shoper.Application.Dtos.CartItemDtos;
 using Shoper.Application.Dtos.ProductDtos;
 using Shoper.Application.Interfaces;
+using Shoper.Application.Interfaces.ICartsRepository;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,16 +18,18 @@ namespace Shoper.Application.Usecasess.CartServices
         private readonly IRepository<CartItem> _itemRepository;
         private readonly IRepository<Customer> _customerRepository;
         private readonly IRepository<Product> _productRepository;
+        private readonly ICartsRepository _cartsRepository;
 
-		public CartService(IRepository<Cart> repository, IRepository<CartItem> itemRepository, IRepository<Customer> customerRepository, IRepository<Product> productRepository)
-		{
-			_repository = repository;
-			_itemRepository = itemRepository;
-			_customerRepository = customerRepository;
-			_productRepository = productRepository;
-		}
+        public CartService(IRepository<Cart> repository, IRepository<CartItem> itemRepository, IRepository<Customer> customerRepository, IRepository<Product> productRepository, ICartsRepository cartsRepository)
+        {
+            _repository = repository;
+            _itemRepository = itemRepository;
+            _customerRepository = customerRepository;
+            _productRepository = productRepository;
+            _cartsRepository = cartsRepository;
+        }
 
-		public async Task CreateCartAsync(CreateCartDto model)
+        public async Task CreateCartAsync(CreateCartDto model)
         {
             var cart = new Cart 
             {
@@ -119,6 +122,7 @@ namespace Shoper.Application.Usecasess.CartServices
                 CreatedDate = cart.CreatedDate,
                 CustomerId = cart.CustomerId,
                 Customer = customer,
+                TotalAmount = cart.TotalAmount,
               
             };
             foreach (var item1 in cart.CartItems)
@@ -163,6 +167,11 @@ namespace Shoper.Application.Usecasess.CartServices
 			}
             cart.TotalAmount = sum;
             await _repository.UpdateAsync(cart);
+        }
+
+        public async Task UpdateTotalAmount(int cartId, decimal totalAmount)
+        {
+           await _cartsRepository.UpdateTotalAmountAsync(cartId, totalAmount);
         }
     }
 }
