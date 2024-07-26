@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shoper.Application.Dtos.CartItemDtos;
 using Shoper.Application.Interfaces.ICartItemsRepository;
 using Shoper.Persistence.Context;
 using System;
@@ -40,6 +41,19 @@ namespace Shoper.Persistence.Repositories.CartItemsRepository
                 cart.Quantity += quantity;
                 cart.TotalPrice = tempprice * cart.Quantity;
                
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateQuantityOnCartAsync(UpdateCartItemDto dto)
+        {
+            var cart = await _context.CartItems.Where(x => x.CartId == dto.CartId && x.ProductId == dto.ProductId).SingleOrDefaultAsync();
+            if (cart != null)
+            {
+                var tempprice = cart.TotalPrice / cart.Quantity;
+                cart.Quantity = dto.Quantity;
+                cart.TotalPrice = tempprice * cart.Quantity;
+
                 await _context.SaveChangesAsync();
             }
         }

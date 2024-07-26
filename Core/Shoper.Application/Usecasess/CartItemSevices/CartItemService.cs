@@ -91,5 +91,10 @@ namespace Shoper.Application.Usecasess.CartItemSevices
         {
             await _cartItemsRepository.UpdateQuantity(cartId,productId,quantity);
         }
+
+        public async Task UpdateQuantityOnCart(UpdateCartItemDto dto)
+        {
+            await _cartItemsRepository.UpdateQuantityOnCartAsync(dto);
+        }
     }
 }

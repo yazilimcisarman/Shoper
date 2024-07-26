@@ -1,4 +1,6 @@
-﻿using Shoper.Application.Dtos.OrderDtos;
+﻿using Shoper.Application.Dtos.CityDtos;
+using Shoper.Application.Dtos.OrderDtos;
+using Shoper.Application.Dtos.TownDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +16,7 @@ namespace Shoper.Application.Usecasess.OrderServices
         Task CreateOrderAsync(CreateOrderDto model);
         Task UpdateOrderAsync(UpdateOrderDto model);
         Task DeleteOrderAsync(int id);
+        Task<List<ResultCityDto>> GetAllCity();
+        Task<List<ResultTownDto>> GetTownByCityId(int cityId);
     }
 }

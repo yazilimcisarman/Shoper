@@ -1,6 +1,9 @@
-﻿using Shoper.Application.Dtos.OrderDtos;
+﻿using Shoper.Application.Dtos.CityDtos;
+using Shoper.Application.Dtos.OrderDtos;
 using Shoper.Application.Dtos.OrderItemDtos;
+using Shoper.Application.Dtos.TownDtos;
 using Shoper.Application.Interfaces;
+using Shoper.Application.Interfaces.IOrderRepository;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,16 +20,18 @@ namespace Shoper.Application.Usecasess.OrderServices
         private readonly IRepository<OrderItem> _repositoryOrderItem;
         private readonly IRepository<Customer> _repositoryCustomer;
         private readonly IRepository<Product> _repositoryProduct;
+        private readonly IOrderRepository _orderRepository;
 
-		public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct)
-		{
-			_repository = repository;
-			_repositoryOrderItem = repositoryOrderItem;
-			_repositoryCustomer = repositoryCustomer;
-			_repositoryProduct = repositoryProduct;
-		}
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct, IOrderRepository orderRepository)
+        {
+            _repository = repository;
+            _repositoryOrderItem = repositoryOrderItem;
+            _repositoryCustomer = repositoryCustomer;
+            _repositoryProduct = repositoryProduct;
+            _orderRepository = orderRepository;
+        }
 
-		public async Task CreateOrderAsync(CreateOrderDto model)
+        public async Task CreateOrderAsync(CreateOrderDto model)
         {
             decimal sum = 0;
             var order = new Order
@@ -36,8 +41,14 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderStatus = model.OrderStatus,
                 //BillingAdress = model.BillingAdress,
                 ShippingAdress = model.ShippingAdress,
+                ShippingCityId=model.ShippingCityId,
+                ShippingTownId = model.ShippingTownId,
                 //PaymentMethod = model.PaymentMethod,
                 CustomerId = model.CustomerId,
+                CustomerName = model.CustomerName,
+                CustomerSurname = model.CustomerSurname,
+                CustomerEmail = model.CustomerEmail,
+                CustomerPhone = model.CustomerPhone,
             };
             await _repository.CreateAsync(order);
 
@@ -67,6 +78,17 @@ namespace Shoper.Application.Usecasess.OrderServices
             await _repository.DeleteAsync(values);
         }
 
+        public async Task<List<ResultCityDto>> GetAllCity()
+        {
+            var values = await _orderRepository.GetCity();
+            return values.Select(x => new ResultCityDto
+            {
+                Id = x.Id,
+                CityId = x.CityId,
+                Cityname = x.Cityname,
+            }).ToList();
+        }
+
         public async Task<List<ResultOrderDto>> GetAllOrderAsync()
         {
             var values = await _repository.GetAllAsync();
@@ -83,9 +105,14 @@ namespace Shoper.Application.Usecasess.OrderServices
                     OrderStatus = item.OrderStatus,
                     //BillingAdress = item.BillingAdress,
                     ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
                     //PaymentMethod = item.PaymentMethod,
                     CustomerId = item.CustomerId,
-                    Customer = ordercustomer,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
                     OrderItems = new List<ResultOrderItemDto>()
 				};
                 foreach (var item1 in item.OrderItems)
@@ -120,9 +147,14 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderStatus = values.OrderStatus,
                 //BillingAdress = values.BillingAdress,
                 ShippingAdress = values.ShippingAdress,
+                ShippingCityId = values.ShippingCityId,
+                ShippingTownId = values.ShippingTownId,
                 //PaymentMethod = values.PaymentMethod,
                 CustomerId = values.CustomerId,
-                Customer = ordercustomer,
+                CustomerName = values.CustomerName,
+                CustomerSurname = values.CustomerSurname,
+                CustomerEmail = values.CustomerEmail,
+                CustomerPhone = values.CustomerPhone,
                 OrderItems = new List<ResultOrderItemDto>()
             };
             foreach (var item in result.OrderItems)
@@ -140,6 +172,18 @@ namespace Shoper.Application.Usecasess.OrderServices
                 result.OrderItems.Add(orderıtemdto);
             }
             return result;
+        }
+
+        public async Task<List<ResultTownDto>> GetTownByCityId(int cityId)
+        {
+            var values = await _orderRepository.GetTownByCityId(cityId);
+            return values.Select(x => new ResultTownDto
+            {
+                Id = x.Id,
+                CityId = x.CityId,
+                TownId = x.TownId,
+                Townname = x.Townname,
+            }).ToList();
         }
 
         public async Task UpdateOrderAsync(UpdateOrderDto model)

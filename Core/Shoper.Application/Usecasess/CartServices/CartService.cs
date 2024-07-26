@@ -125,20 +125,23 @@ namespace Shoper.Application.Usecasess.CartServices
                 TotalAmount = cart.TotalAmount,
               
             };
-            foreach (var item1 in cart.CartItems)
+            if(cart.CartItems != null)
             {
-				var prodcutdto = await _productRepository.GetByFilterAsync(prd => prd.ProductId == item1.ProductId);
-				var cartItemddto = new ResultCartItemDto
-				{
-					CartId = item1.CartId,
-					CartItemId = item1.CartItemId,
-					ProductId = item1.ProductId,
-					Product = prodcutdto,
-					Quantity = item1.Quantity,
-					TotalPrice = item1.TotalPrice,
-				};
-				result.CartItems.Add(cartItemddto);
-			}
+                foreach (var item1 in cart.CartItems)
+                {
+                    var prodcutdto = await _productRepository.GetByFilterAsync(prd => prd.ProductId == item1.ProductId);
+                    var cartItemddto = new ResultCartItemDto
+                    {
+                        CartId = item1.CartId,
+                        CartItemId = item1.CartItemId,
+                        ProductId = item1.ProductId,
+                        Product = prodcutdto,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                    };
+                    result.CartItems.Add(cartItemddto);
+                }
+            }
             return result;
         }
 
