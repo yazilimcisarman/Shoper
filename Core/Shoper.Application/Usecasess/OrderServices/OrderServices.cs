@@ -36,7 +36,7 @@ namespace Shoper.Application.Usecasess.OrderServices
             decimal sum = 0;
             var order = new Order
             {
-                OrderDate = model.OrderDate,
+                OrderDate = DateTime.Now,
                 TotalAmount = sum,
                 OrderStatus = model.OrderStatus,
                 //BillingAdress = model.BillingAdress,

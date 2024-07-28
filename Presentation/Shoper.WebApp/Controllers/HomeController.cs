@@ -28,9 +28,15 @@ namespace Shoper.WebApp.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string message)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var error = new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id,
+                ExMessage = message,
+
+            };
+            return View(error);
         }
     }
 }
