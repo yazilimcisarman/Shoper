@@ -96,7 +96,7 @@ namespace Shoper.Application.Usecasess.OrderServices
             var result = new List<ResultOrderDto>();
             foreach (var item in values)
             {
-                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                 var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
                 var orderdto = new ResultOrderDto
                 {
                     OrderId = item.OrderId,
