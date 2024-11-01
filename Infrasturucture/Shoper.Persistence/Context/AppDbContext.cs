@@ -24,6 +24,7 @@ namespace Shoper.Persistence.Context
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Town> Town { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
 
         //public List<Customer> GetAllCustomer()
         //{

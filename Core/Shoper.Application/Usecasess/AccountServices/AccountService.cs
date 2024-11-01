@@ -28,9 +28,9 @@ namespace Shoper.Application.Usecasess.AccountServices
             return result;
         }
 
-        public Task Logout()
+        public async Task Logout()
         {
-            throw new NotImplementedException();
+            await _userIdentityRepository.LogoutAsync();
         }
 
         public async Task<string> Register(RegisterDto dto)

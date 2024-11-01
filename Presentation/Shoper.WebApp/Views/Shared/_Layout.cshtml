@@ -30,16 +30,16 @@
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
+                    <a class="text-dark" href="">SSS</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
+                    <a class="text-dark" href="">Yardım</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
+                    <a class="text-dark" href="">Destek</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark px-2" href="">
+                    @* <a class="text-dark px-2" href="">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     <a class="text-dark px-2" href="">
@@ -47,11 +47,11 @@
                     </a>
                     <a class="text-dark px-2" href="">
                         <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="text-dark px-2" href="">
+                    </a> *@
+                    <a class="text-dark px-2" href="https://www.instagram.com/yazilimcisarman/">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="text-dark pl-2" href="">
+                    <a class="text-dark pl-2" href="https://www.youtube.com/@@yazilimcisarman">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -60,16 +60,17 @@
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold">Shopper</h1>
+                    <h1 class="m-0 display-5 font-weight-semi-bold">Shopper</h1> @*burdakı adımızı magaza adıyla degısıtırıcez*@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <form id="searchForm" action="/Product/Index" method="post">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Ara">
+                        <input type="text" class="form-control" placeholder="Ara" id="search" name="search">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
+                                <button type="submit" style="display:none;"></button>
+                                <i class="fa fa-search" id="searchIcon" style="cursor:pointer;"></i>
                             </span>
                         </div>
                     </div>
@@ -124,21 +125,33 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/Home/Index" class="nav-item nav-link active">AnaSayfa</a>
+                            <a href="contact.html" class="nav-item nav-link">Populer Urunler</a>
+                            <a href="contact.html" class="nav-item nav-link">Cok Satanlar</a>
                             <a href="/product/Index" class="nav-item nav-link">Ürünler</a>
                             @* <a href="detail.html" class="nav-item nav-link">Shop Detail</a> *@
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            @* <div class="nav-item dropdown"> *@
+                                @* <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="cart.html" class="dropdown-item">Shopping Cart</a>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
+                            </div> *@
+                            <a href="contact.html" class="nav-item nav-link">Iletisim</a>
+                        </div>
+                        @if(User.Identity.Name == null)
+                        {
+                            <div class="navbar-nav ml-auto py-0">
+                                <a href="/Account/Login" class="nav-item nav-link">Giriş Yap</a>
+                                <a href="/Account/Register" class="nav-item nav-link">Kayıt Ol</a>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="navbar-nav ml-auto py-0">
+                                <a href="/Account/Profile" class="nav-item nav-link">Profile</a>
+                                <a href="/Account/LogOut" class="nav-item nav-link">Çıkış Yap</a>
+                            </div>
+                        }
                     </div>
                 </nav>
             </div>
@@ -189,16 +202,16 @@
                     </div>
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
-                        <form action="">
+                        <form action="/Subscriber/Create" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                                <input type="text" class="form-control border-0 py-4" placeholder="Adiniz" required="required" name="name" />
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                <input type="email" class="form-control border-0 py-4" placeholder="Emailiniz" name="email"
                                        required="required" />
                             </div>
                             <div>
-                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Abone Ol</button>
                             </div>
                         </form>
                     </div>
@@ -235,6 +248,11 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('searchIcon').addEventListener('click', function () {
+            document.getElementById('searchForm').submit();
+        });
+    </script>
 </body>
 
 </html>

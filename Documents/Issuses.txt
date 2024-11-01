@@ -1,0 +1,14 @@
+﻿
+search servıceslerını eklenecek -- bunu yaptik
+
+favorıler ve sepet ıcın method yazılacak
+
+SSS yardım ve destek ıcın sayf olusturulacak
+
+contact sayfası
+
+account profile sayfasi
+
+sepete eklendi modali olustur alert olmasin
+
+urunler sayfasina sayfalama ekle

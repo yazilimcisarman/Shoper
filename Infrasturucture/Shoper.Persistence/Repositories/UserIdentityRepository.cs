@@ -74,7 +74,7 @@ namespace Shoper.Persistence.Repositories
                 PhoneNumber = dto.PhoneNumber,
             };
 
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user,dto.Password);
             if (result.Succeeded)
             {
                 return "Üye olundu.";

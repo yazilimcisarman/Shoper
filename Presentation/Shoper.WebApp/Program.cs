@@ -6,11 +6,13 @@ using Shoper.Application.Interfaces.ICartItemsRepository;
 using Shoper.Application.Interfaces.ICartsRepository;
 using Shoper.Application.Interfaces.IOrderRepository;
 using Shoper.Application.Interfaces.IProductsRepository;
+using Shoper.Application.Usecasess.AccountServices;
 using Shoper.Application.Usecasess.CartItemSevices;
 using Shoper.Application.Usecasess.CartServices;
 using Shoper.Application.Usecasess.CategoryServices;
 using Shoper.Application.Usecasess.OrderServices;
 using Shoper.Application.Usecasess.ProductServices;
+using Shoper.Application.Usecasess.SubscriberServices;
 using Shoper.Persistence.Context;
 using Shoper.Persistence.Context.Identity;
 using Shoper.Persistence.Repositories;
@@ -25,6 +27,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserIdentityRepository, UserIdentityRepository>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
 builder.Services.AddScoped<ICartsRepository, CartsRepository>();
@@ -33,6 +36,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 {
     var configuration = builder.Configuration;
@@ -86,6 +91,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
