@@ -53,6 +53,7 @@
   <ItemGroup>
     <Content Include="ProductsImageUrl.txt" />
     <Content Include="Issuses.txt" />
+    <Content Include="SSS.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

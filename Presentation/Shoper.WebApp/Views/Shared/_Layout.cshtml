@@ -30,11 +30,11 @@
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">SSS</a>
+                    <a class="text-dark" href="/faqs/index">SSS</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Yardım</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Destek</a>
+                   @*  <a class="text-dark" href="">Yardım</a>
+                    <span class="text-muted px-2">|</span> *@
+                    <a class="text-dark" href="/help/index">Destek</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -136,7 +136,7 @@
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div> *@
-                            <a href="contact.html" class="nav-item nav-link">Iletisim</a>
+                            <a href="/Contact/Index" class="nav-item nav-link">Iletisim</a>
                         </div>
                         @if(User.Identity.Name == null)
                         {
@@ -201,7 +201,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                        <h5 class="font-weight-bold text-dark mb-4">Abone Ol</h5>
                         <form action="/Subscriber/Create" method="post">
                             <div class="form-group">
                                 <input type="text" class="form-control border-0 py-4" placeholder="Adiniz" required="required" name="name" />

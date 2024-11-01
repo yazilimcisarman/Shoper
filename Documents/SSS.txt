@@ -1,0 +1,43 @@
+﻿Sipariş ve Teslimat
+Soru: Siparişimi ne zaman teslim alabilirim?
+Cevap: Siparişleriniz 1-3 iş günü içinde kargoya teslim edilmektedir. Teslimat süresi, bulunduğunuz bölgeye göre değişiklik gösterebilir.
+
+Soru: Kargo ücreti ne kadar?
+Cevap: 500 TL ve üzeri alışverişlerde kargo ücretsizdir. 500 TL altındaki siparişlerde ise sabit bir kargo ücreti uygulanmaktadır.
+
+Soru: Siparişimin durumunu nasıl takip edebilirim?
+Cevap: Siparişinizi tamamladıktan sonra, size gönderilecek kargo takip numarası ile kargonuzun durumunu takip edebilirsiniz.
+
+İade ve Değişim
+Soru: İade süreci nasıl işliyor?
+Cevap: Siparişinizi teslim aldıktan sonra 14 gün içinde iade talebinde bulunabilirsiniz. Ürün, orijinal ambalajında ve kullanılmamış olmalıdır. İade işlemi onaylandığında ödemeniz iade edilir.
+
+Soru: Ürün değişimi yapabilir miyim?
+Cevap: Ürün değişim işlemlerimiz şu an için yoktur. Ancak iade edip, yeni bir sipariş verebilirsiniz.
+
+Soru: İade kargo ücretini kim karşılıyor?
+Cevap: Hatalı veya kusurlu ürünlerde iade kargo ücreti bize aittir. Diğer durumlarda kargo ücreti müşteriye aittir.
+
+Ürünler ve Stok
+Soru: Bir ürün stokta yoksa ne yapabilirim?
+Cevap: Stokta olmayan ürünler için "Stok Gelince Haber Ver" seçeneğini kullanabilirsiniz. Ürün stoklara girdiğinde e-posta yoluyla bilgilendirileceksiniz.
+
+Soru: Ürünleriniz orijinal mi?
+Cevap: Evet, sitemizde satışa sunulan tüm ürünler %100 orijinal ve garanti kapsamındadır.
+
+Ödeme
+Soru: Hangi ödeme yöntemlerini kabul ediyorsunuz?
+Cevap: Kredi kartı, banka kartı ve kapıda ödeme seçeneklerimiz mevcuttur. Ayrıca, belirli kampanyalar kapsamında taksit seçeneklerimiz de bulunmaktadır.
+
+Soru: Ödememi güvenli bir şekilde yapabilir miyim?
+Cevap: Evet, sitemiz SSL sertifikası ile korunmaktadır. Ödeme işlemleriniz güvenli bir şekilde yapılmaktadır.
+
+Soru: Kapıda ödeme var mı?
+Cevap: Evet, kapıda ödeme seçeneğimiz bulunmaktadır. Kapıda ödeme seçeneği için küçük bir ek ücret alınabilir.
+
+Üyelik ve Hesap İşlemleri
+Soru: Şifremi unuttum, ne yapmalıyım?
+Cevap: Giriş ekranındaki “Şifremi Unuttum” bağlantısına tıklayarak şifrenizi sıfırlayabilirsiniz. E-posta adresinize yeni bir şifre gönderilecektir.
+
+Soru: Adres bilgilerimi nasıl güncelleyebilirim?
+Cevap: Hesap ayarlarınıza girerek adres bilgilerinizi güncelleyebilirsiniz. Sipariş sırasında adres seçimi yaparken yeni adresinizi de ekleyebilirsiniz.
