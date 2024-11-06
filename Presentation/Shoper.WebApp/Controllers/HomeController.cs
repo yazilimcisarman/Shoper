@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Shoper.Application.Dtos.CartDtos;
+using Shoper.Application.Dtos.CartItemDtos;
 using Shoper.Application.Usecasess.ProductServices;
 using Shoper.WebApp.Models;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace Shoper.WebApp.Controllers
 {
@@ -18,6 +21,29 @@ namespace Shoper.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Content("Kullanýcý giriþ yapmýþ.");
+            }
+            else
+            {
+                string cookieName = "cart";
+
+                if (!Request.Cookies.ContainsKey(cookieName))
+                {
+                    var cartItem = new CreateCartDto();
+                    cartItem.CartItems = new List<CreateCartItemDto>();
+
+                    var cartData = JsonSerializer.Serialize(cartItem);
+                    Response.Cookies.Append(cookieName, cartData, new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddDays(7), 
+                        HttpOnly = true,
+                        Secure = true 
+                    });
+                }
+            }
+            
             var values = await _productService.GetProductTake(8);
             return View(values);
         }

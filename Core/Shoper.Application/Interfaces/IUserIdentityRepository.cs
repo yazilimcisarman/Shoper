@@ -13,5 +13,6 @@ namespace Shoper.Application.Interfaces
         Task<string> RegisterAsync(RegisterDto dto);
         Task<string> ChangePasswordAsync();
         Task LogoutAsync();
+        Task<bool> IsUserAuthenticated();
     }
 }

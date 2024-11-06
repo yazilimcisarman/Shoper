@@ -12,3 +12,5 @@ account profile sayfasi
 sepete eklendi modali olustur alert olmasin
 
 urunler sayfasina sayfalama ekle
+
+destrek formu gonderdikten sonra bir modal ile gonderildi ciksin

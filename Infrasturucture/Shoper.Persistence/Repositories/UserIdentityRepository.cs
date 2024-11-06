@@ -27,6 +27,11 @@ namespace Shoper.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<bool> IsUserAuthenticated()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string> LoginAsync(LoginDto dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);

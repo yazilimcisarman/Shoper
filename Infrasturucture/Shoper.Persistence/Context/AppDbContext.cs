@@ -25,6 +25,8 @@ namespace Shoper.Persistence.Context
         public DbSet<City> City { get; set; }
         public DbSet<Town> Town { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Help> Helps { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         //public List<Customer> GetAllCustomer()
         //{

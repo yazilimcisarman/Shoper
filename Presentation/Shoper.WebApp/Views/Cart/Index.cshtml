@@ -16,30 +16,42 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
+                    @if(Model.CartItems != null)
+                    {
                         @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td class="align-middle"><img src="@item.Product.ImageUrl" alt="" style="width: 50px;"> @item.Product.ProductName</td>
+                                <td class="align-middle">@item.Product.Price</td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus" onclick="updateQuantity(@Model.CartId,@item.ProductId,@item.CartItemId,-1)">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary text-center" id="quantity_@item.ProductId" name="quantity" value="@item.Quantity" readonly>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus" onclick="updateQuantity(@Model.CartId,@item.ProductId,@item.CartItemId,1)">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">@item.TotalPrice</td>
+                                <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.ProductId)"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td class="align-middle"><img src="@item.Product.ImageUrl" alt="" style="width: 50px;"> @item.Product.ProductName</td>
-                            <td class="align-middle">@item.Product.Price</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus" onclick="updateQuantity(@Model.CartId,@item.ProductId,@item.CartItemId,-1)">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" id="quantity_@item.ProductId" name="quantity"  value="@item.Quantity" readonly>
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus" onclick="updateQuantity(@Model.CartId,@item.ProductId,@item.CartItemId,1)">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <td class="align-middle" colspan="5">
+                                sepetinize urun ekleyin
                             </td>
-                            <td class="align-middle">@item.TotalPrice</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.CartItemId)"><i class="fa fa-times"></i></button></td>
                         </tr>
                     }
+
                        
                     </tbody>
                 </table>

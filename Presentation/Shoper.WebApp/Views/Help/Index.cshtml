@@ -18,30 +18,30 @@
         <div class="col-lg-7 mb-5">
             <div class="contact-form">
                 <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                <form method="post" action="/Help/CreateHelp" name="sentMessage" id="helpform" novalidate="novalidate">
                     <div class="control-group">
                         <input type="text" class="form-control" id="name" placeholder="Adiniz"
-                               required="required" data-validation-required-message="Lutfen adinizi giriniz" />
+                               required="required" data-validation-required-message="Lutfen adinizi giriniz" name="name" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <input type="email" class="form-control" id="email" placeholder="Email Adresiniz"
-                               required="required" data-validation-required-message="Lutfen email adresinizi giriniz" />
+                               required="required" data-validation-required-message="Lutfen email adresinizi giriniz" name="email"/>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <input type="text" class="form-control" id="subject" placeholder="Konu"
-                               required="required" data-validation-required-message="Lutfen konuyu giriniz" />
+                               required="required" data-validation-required-message="Lutfen konuyu giriniz" name="subject"/>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <textarea class="form-control" rows="6" id="message" placeholder="Destek Istediginiz Konuyu Aciklayin"
                                   required="required"
-                                  data-validation-required-message="Lutfen mesajinizi giriniz"></textarea>
+                                  data-validation-required-message="Lutfen mesajinizi giriniz" name="message"></textarea>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                        <button class="btn btn-primary py-2 px-4" type="submit" id="help">
                             Destek Talebi Olustur
                         </button>
                     </div>
