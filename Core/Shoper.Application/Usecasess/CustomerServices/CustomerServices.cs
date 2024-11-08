@@ -91,5 +91,13 @@ namespace Shoper.Application.Usecasess.CustomerServices
             //values .Orders = updateCustomerDto.Orders;
             await _repository.UpdateAsync(values);
         }
+
+        public async Task UpdateNameAndSurname(string userId, string name, string surname)
+        {
+            var values = await _repository.FirstOrDefaultAsync(x => x.UserId == userId);
+            values.FirstName = name;
+            values.LastName = surname;
+            await _repository.UpdateAsync(values);
+        }
     }
 }

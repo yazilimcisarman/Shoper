@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity; //Bunu kurmanız gerekecek
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity; //Bunu kurmanız gerekecek
 using Shoper.Application.Dtos.AccountDtos;
 using Shoper.Application.Interfaces;
 using Shoper.Persistence.Context.Identity;
@@ -23,9 +24,31 @@ namespace Shoper.Persistence.Repositories
             _signInManager = signInManager;
         }
 
-        public Task<string> ChangePasswordAsync()
+        public async Task<string> ChangePasswordAsync(ChangePasswordDto dto)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(dto.UserId);
+            if (user == null)
+            {
+                return "User not found";
+            }
+
+            // Yeni şifre ve onay şifresini kontrol et
+            if (dto.NewPassword != dto.ConfirmNewPassword)
+            {
+                return "New password and confirmation do not match";
+            }
+
+            // Şifreyi değiştir
+            var result = await _userManager.ChangePasswordAsync(user, dto.Password, dto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return "Password changed successfully";
+            }
+
+            // Hata mesajlarını birleştir
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            return $"Failed to change password: {errors}";
         }
 
         public async Task<string> GetUserIdOnAuth(ClaimsPrincipal user)
@@ -100,6 +123,24 @@ namespace Shoper.Persistence.Repositories
             {
                 return result.Errors.ToString();
             }
+        }
+        public async Task<bool> UpdateUserNameAndSurnameAsync(string userId, string newName, string newSurname)
+        {
+            // Kullanıcıyı ID ile bul
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            // Yeni ad ve soyadı ayarla
+            user.Name = newName; // FirstName ve LastName alanlarının ApplicationUser modelinde tanımlı olduğunu varsayıyorum.
+            user.SurName = newSurname;
+
+            // Güncelleme işlemi
+            var result = await _userManager.UpdateAsync(user);
+
+            return result.Succeeded;
         }
     }
 }

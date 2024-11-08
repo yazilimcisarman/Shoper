@@ -18,5 +18,6 @@ namespace Shoper.Application.Usecasess.OrderServices
         Task DeleteOrderAsync(int id);
         Task<List<ResultCityDto>> GetAllCity();
         Task<List<ResultTownDto>> GetTownByCityId(int cityId);
+        Task<List<ResultOrderDto>> GetOrderByUserId(string userId);
     }
 }

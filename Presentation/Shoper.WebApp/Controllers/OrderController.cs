@@ -152,6 +152,7 @@ namespace Shoper.WebApp.Controllers
 
                     }
                     detailedCartItems.TotalAmount = totalsum;
+                    detailedCartItems.UserId = "1111111111111";
                     cart = detailedCartItems;
                 }
                 else
@@ -169,6 +170,7 @@ namespace Shoper.WebApp.Controllers
                     };
                     result.Add(newOrderItem);
                 }
+                dto.UserId = await _userIdentityRepository.GetUserIdOnAuth(User);
                 dto.CustomerId =1;
                 dto.OrderItems = result;
                 dto.OrderStatus = "Siparişiniz Alındı.";

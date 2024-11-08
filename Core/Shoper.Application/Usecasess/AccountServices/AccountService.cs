@@ -3,6 +3,7 @@ using Shoper.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,16 @@ namespace Shoper.Application.Usecasess.AccountServices
             _userIdentityRepository = userIdentityRepository;
         }
 
-        public Task<string> ChangePassword()
+        public async Task<string> ChangePassword(ChangePasswordDto dto)
         {
-            throw new NotImplementedException();
+            var result = await _userIdentityRepository.ChangePasswordAsync(dto);
+            return result;
+        }
+
+        public Task<string> GetUserIdAsync(ClaimsPrincipal user)
+        {
+            var userid = _userIdentityRepository.GetUserIdOnAuth(user);
+            return userid;
         }
 
         public async Task<string> Login(LoginDto dto)
@@ -36,6 +44,12 @@ namespace Shoper.Application.Usecasess.AccountServices
         public async Task<string> Register(RegisterDto dto)
         {
             var result = await _userIdentityRepository.RegisterAsync(dto);
+            return result;
+        }
+
+        public async Task<bool> UpdateUser(string userId, string name, string surname)
+        {
+            var result = await _userIdentityRepository.UpdateUserNameAndSurnameAsync(userId, name, surname);
             return result;
         }
     }

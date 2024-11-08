@@ -24,5 +24,6 @@ namespace Shoper.Domain.Entities
         public string CustomerPhone { get; set; }
         public Customer Customer { get; set; }
         public List<OrderItem> OrderItems { get; set; }
+        public string UserId { get; set; }
     }
 }

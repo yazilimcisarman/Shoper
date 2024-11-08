@@ -12,9 +12,10 @@ namespace Shoper.Application.Interfaces
     {
         Task<string> LoginAsync(LoginDto dto);
         Task<string> RegisterAsync(RegisterDto dto);
-        Task<string> ChangePasswordAsync();
+        Task<string> ChangePasswordAsync(ChangePasswordDto dto);
         Task LogoutAsync();
         Task<bool> IsUserAuthenticated();
         Task<string> GetUserIdOnAuth(ClaimsPrincipal user);
+        Task<bool> UpdateUserNameAndSurnameAsync(string userId, string newName, string newSurname);
     }
 }

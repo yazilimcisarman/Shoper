@@ -49,6 +49,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                 CustomerSurname = model.CustomerSurname,
                 CustomerEmail = model.CustomerEmail,
                 CustomerPhone = model.CustomerPhone,
+                UserId = model.UserId,
             };
             await _repository.CreateAsync(order);
 
@@ -113,7 +114,8 @@ namespace Shoper.Application.Usecasess.OrderServices
                     CustomerSurname = item.CustomerSurname,
                     CustomerEmail = item.CustomerEmail,
                     CustomerPhone = item.CustomerPhone,
-                    OrderItems = new List<ResultOrderItemDto>()
+                    OrderItems = new List<ResultOrderItemDto>(),
+                    UserId = item.UserId,
 				};
                 foreach (var item1 in item.OrderItems)
                 {
@@ -155,7 +157,8 @@ namespace Shoper.Application.Usecasess.OrderServices
                 CustomerSurname = values.CustomerSurname,
                 CustomerEmail = values.CustomerEmail,
                 CustomerPhone = values.CustomerPhone,
-                OrderItems = new List<ResultOrderItemDto>()
+                OrderItems = new List<ResultOrderItemDto>(),
+                UserId = values.UserId,
             };
             foreach (var item in result.OrderItems)
             {
@@ -170,6 +173,53 @@ namespace Shoper.Application.Usecasess.OrderServices
 					Product = orderitemproduct,
 				};
                 result.OrderItems.Add(orderıtemdto);
+            }
+            return result;
+        }
+
+        public async Task<List<ResultOrderDto>> GetOrderByUserId(string userId)
+        {
+            var values = await _repository.WhereAsync(x => x.UserId == userId);
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
+            var result = new List<ResultOrderDto>();
+            foreach (var item in values)
+            {
+                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                var orderdto = new ResultOrderDto
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalAmount = item.TotalAmount,
+                    OrderStatus = item.OrderStatus,
+                    //BillingAdress = item.BillingAdress,
+                    ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
+                    //PaymentMethod = item.PaymentMethod,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
+                    OrderItems = new List<ResultOrderItemDto>(),
+                    UserId = item.UserId,
+                };
+                foreach (var item1 in item.OrderItems)
+                {
+                    var orderıtemproduct = await _repositoryProduct.GetByIdAsync(item1.ProductId);
+                    var orderıtemdto = new ResultOrderItemDto
+                    {
+                        OrderId = item1.OrderId,
+                        ProductId = item1.ProductId,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                        OrderItemId = item1.OrderItemId,
+                        Product = orderıtemproduct,
+
+                    };
+                    orderdto.OrderItems.Add(orderıtemdto);
+                }
+                result.Add(orderdto);
             }
             return result;
         }

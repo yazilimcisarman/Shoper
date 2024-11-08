@@ -24,5 +24,7 @@ namespace Shoper.Application.Dtos.OrderDtos
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
         public List<CreateOrderItemDto> OrderItems { get; set; }
+        public string UserId { get; set; }
+
     }
 }
