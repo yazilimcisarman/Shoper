@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Shoper.Application.Dtos.CartDtos;
 using Shoper.Application.Dtos.CartItemDtos;
+using Shoper.Application.Interfaces;
+using Shoper.Application.Usecasess.CartServices;
 using Shoper.Application.Usecasess.ProductServices;
 using Shoper.WebApp.Models;
 using System.Diagnostics;
@@ -12,18 +14,42 @@ namespace Shoper.WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
+        private readonly IUserIdentityRepository _userIdentityRepository;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICartService cartService, IUserIdentityRepository userIdentityRepository)
         {
             _logger = logger;
             _productService = productService;
+            _cartService = cartService;
+            _userIdentityRepository = userIdentityRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return Content("Kullanýcý giriþ yapmýþ.");
+                if (Request.Cookies.TryGetValue("cart", out string cartData))
+                {
+                    string cookieName = "cart";
+                    CreateCartDto cartItems = new CreateCartDto();
+
+                    if (Request.Cookies.TryGetValue(cookieName, out string cartData1))
+                    {
+                        cartItems = JsonSerializer.Deserialize<CreateCartDto>(cartData1) ?? new CreateCartDto();
+                    }
+                    cartItems.CreatedDate = DateTime.Now;
+                    var userId = await _userIdentityRepository.GetUserIdOnAuth(User);
+                    cartItems.UserId = userId;
+                    var result = await _cartService.CheckCartAsync(userId);
+                    if (!result)
+                    {
+                        await _cartService.CreateCartAsync(cartItems);
+                    }
+                }
+
+                var values1 = await _productService.GetProductTake(8);
+                return View(values1);
             }
             else
             {

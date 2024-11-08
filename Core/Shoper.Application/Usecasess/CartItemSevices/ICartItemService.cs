@@ -18,5 +18,6 @@ namespace Shoper.Application.Usecasess.CartItemSevices
         Task UpdateQuantity(int cartId, int productId, int quantity);
         Task UpdateQuantityOnCart(UpdateCartItemDto dto);
         Task<bool> CheckCartItems(int cartId, int productId);
+        Task<int> GetCountCartItemsByCartId(string userId);
     }
 }

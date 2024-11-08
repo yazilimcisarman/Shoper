@@ -7,22 +7,46 @@
             <div class="mb-4">
                 <h4 class="font-weight-semi-bold mb-4">Sipariş Bilgileri</h4>
                 <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Ad</label>
-                        <input class="form-control" type="text" placeholder="Ad" name="customerName" id="customerName" required>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Soyad</label>
-                        <input class="form-control" type="text" placeholder="Soyad" name="customerSurname" id="customerSurname" required>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>E-mail</label>
-                        <input class="form-control" type="text" placeholder="example@email.com" name="customerEmail" id="customerEmail" required>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Telefon</label>
-                        <input class="form-control" type="text" placeholder="5XX-XXX-XXXX" name="customerPhone" id="customerPhone" required>
-                    </div>
+                    @if(Model.Customer == null)
+                    {
+                        <div class="col-md-6 form-group">
+                            <label>Ad</label>
+                            <input class="form-control" type="text" placeholder="Ad" name="customerName" id="customerName" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Soyad</label>
+                            <input class="form-control" type="text" placeholder="Soyad" name="customerSurname" id="customerSurname" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" placeholder="example@email.com" name="customerEmail" id="customerEmail" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Telefon</label>
+                            <input class="form-control" type="text" placeholder="5XX-XXX-XXXX" name="customerPhone" id="customerPhone" required>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 form-group">
+                            <label>Ad</label>
+                            <input class="form-control" type="text" placeholder="Ad" name="customerName" id="customerName" required value="@Model.Customer.FirstName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Soyad</label>
+                            <input class="form-control" type="text" placeholder="Soyad" name="customerSurname" id="customerSurname" required value="@Model.Customer.LastName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" placeholder="example@email.com" name="customerEmail" id="customerEmail" required value="@Model.Customer.Email">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Telefon</label>
+                            <input class="form-control" type="text" placeholder="5XX-XXX-XXXX" name="customerPhone" id="customerPhone" required value="@Model.Customer.PhoneNumber">
+                        </div>
+                        
+                    }
+
                     <div class="col-md-6 form-group">
                         <label>Şehir</label>
                         <select class="custom-select" id="city" name="shippingCityId">
@@ -49,13 +73,24 @@
                 </div>
                 <div class="card-body">
                     <h5 class="font-weight-medium mb-3">Ürünler</h5>
-                    @foreach (var item in Model.CartItems)
+                    
+                    @if(Model.CartItems != null)
+                    {
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <p>@item.Product.ProductName x @item.Quantity</p>
+                                <p>$@item.TotalPrice</p>
+                            </div>
+                        }
+                    }
+                    else
                     {
                         <div class="d-flex justify-content-between">
-                            <p>@item.Product.ProductName</p>
-                            <p>$@item.TotalPrice</p>
+                            <p>Urunler Yok</p>
                         </div>
                     }
+
                    
                     <hr class="mt-0">
                     <div class="d-flex justify-content-between mb-3 pt-1">
@@ -146,7 +181,7 @@
             };
             var cartId = @Model.CartId;
 
-            console.log(orderData);
+            // console.log(orderData);
             if (!orderData.customerName || !orderData.customerSurname || !orderData.customerEmail ||
                 !orderData.customerPhone || !orderData.shippingCityId || orderData.shippingCityId === "0" ||
                 !orderData.shippingTownId || !orderData.shippingAdress) {
@@ -164,7 +199,7 @@
                 dataType: 'json',
                 success: function (response) {
                 console.log(response);
-                    alert('Order placed successfully!');
+                    alert('Siparisiniz basarili bir sekilde olusturuldu!');
                     window.location.href = '@Url.Action("Index", "Home")';
                 },
                 error: function (response) {

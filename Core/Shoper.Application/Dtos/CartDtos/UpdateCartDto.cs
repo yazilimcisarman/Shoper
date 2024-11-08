@@ -16,5 +16,6 @@ namespace Shoper.Application.Dtos.CartDtos
         //public int CustomerId { get; set; }
         //public Customer? Customer { get; set; }
         public ICollection<UpdateCartItemDto> CartItems { get; set; }
+
     }
 }

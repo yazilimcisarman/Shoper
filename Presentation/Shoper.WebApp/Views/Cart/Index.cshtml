@@ -39,7 +39,7 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">@item.TotalPrice</td>
-                                <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.ProductId)"><i class="fa fa-times"></i></button></td>
+                                <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.CartItemId,@item.ProductId)"><i class="fa fa-times"></i></button></td>
                             </tr>
                         }
                     }
@@ -72,7 +72,7 @@
                             <h5 class="font-weight-bold">Toplam</h5>
                             <h5 class="font-weight-bold">@Model.TotalAmount</h5>
                         </div>
-                    <button class="btn btn-block btn-primary my-3 py-3">Sipariş Ver</button>
+                    @* <button class="btn btn-block btn-primary my-3 py-3">Sipariş Ver</button> *@
                     <a href="/Order/Checkout?cartId=@Model.CartId" class="btn btn-block btn-primary my-3 py-3">Sipariş Ver</a>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
     </div>
 
 <script>
-    function deleteFromCart(id) {
+    function deleteFromCart(id,productId) {
         $.ajax({
-            url: '/Cart/DeleteCartItem?id='+id,
+            url: '/Cart/DeleteCartItem?id='+id+'&productId='+productId,
             type: 'GET',
             success: function (response) {
                 if (response.success) {

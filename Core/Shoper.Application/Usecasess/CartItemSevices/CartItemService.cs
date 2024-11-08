@@ -14,12 +14,14 @@ namespace Shoper.Application.Usecasess.CartItemSevices
     public class CartItemService : ICartItemService
     {
         private readonly IRepository<CartItem> _repository;
+        private readonly IRepository<Cart> _cartRepository;
         private readonly ICartItemsRepository _cartItemsRepository;
 
-        public CartItemService(IRepository<CartItem> repository, ICartItemsRepository cartItemsRepository)
+        public CartItemService(IRepository<CartItem> repository, ICartItemsRepository cartItemsRepository, IRepository<Cart> cartRepository)
         {
             _repository = repository;
             _cartItemsRepository = cartItemsRepository;
+            _cartRepository = cartRepository;
         }
 
         public async Task<bool> CheckCartItems(int cartId, int productId)
@@ -75,6 +77,29 @@ namespace Shoper.Application.Usecasess.CartItemSevices
                 CartId= cartItem.CartId,
                 TotalPrice = cartItem.TotalPrice
             };
+        }
+
+        public async Task<int> GetCountCartItemsByCartId(string userId)
+        {
+            var cartid = await _cartRepository.FirstOrDefaultAsync(x => x.UserId == userId);
+            if(cartid == null)
+            {
+                return 0;
+            }
+            else
+            {
+                var cartItems = await _repository.WhereAsync(x => x.CartId == cartid.CartId);
+                if (cartItems == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return cartItems.Count();
+
+                } 
+            }
+            
         }
 
         public async Task UpdateCartItemAsync(UpdateCartItemDto model)

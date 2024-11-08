@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shoper.Application.Dtos.CartDtos;
 using Shoper.Application.Dtos.CartItemDtos;
+using Shoper.Application.Interfaces;
+using Shoper.Application.Usecasess.AccountServices;
 using Shoper.Application.Usecasess.CartItemSevices;
 using Shoper.Application.Usecasess.CartServices;
 using Shoper.Application.Usecasess.ProductServices;
@@ -14,63 +16,70 @@ namespace Shoper.WebApp.Controllers
         private readonly ICartService _cartservices;
         private readonly ICartItemService _cartitemservice;
         private readonly IProductService _productservice;
+        private readonly IUserIdentityRepository _useridentityrepository;
 
-        public CartController(ICartService cartservices, ICartItemService cartitemservice, IProductService productservice)
+        public CartController(ICartService cartservices, ICartItemService cartitemservice, IProductService productservice, IUserIdentityRepository useridentityrepository)
         {
             _cartservices = cartservices;
             _cartitemservice = cartitemservice;
             _productservice = productservice;
+            _useridentityrepository = useridentityrepository;
         }
 
-        public async Task<IActionResult> Index(int id=2)
+        public async Task<IActionResult> Index()
         {
-            if (Request.Cookies.TryGetValue("cart", out string cartData))
+            if (!User.Identity.IsAuthenticated)
             {
-                string cookieName = "cart";
-                CreateCartDto cartItems = new CreateCartDto();
-
-                if (Request.Cookies.TryGetValue(cookieName, out string cartData1))
+                if (Request.Cookies.TryGetValue("cart", out string cartData))
                 {
-                    cartItems = JsonSerializer.Deserialize<CreateCartDto>(cartData1) ?? new CreateCartDto();
-                }
+                    string cookieName = "cart";
+                    CreateCartDto cartItems = new CreateCartDto();
 
-                // `GetByIdCartDto` verisini toplamak için bir liste oluşturun
-                GetByIdCartDto detailedCartItems = new GetByIdCartDto();
-                detailedCartItems.CartItems = new List<ResultCartItemDto>();
-                var totalsum = 0;
-                foreach (var item in cartItems.CartItems)
-                {
-                    // Veritabanından veya servisten `GetByIdCartDto` tipinde detaylı bilgi alın
-                    
-                    var detailedItem = await _productservice.GetByIdProductAsync(item.ProductId);
-                    var newproduct = new Product();
-                    newproduct.ProductId = detailedItem.ProductId;
-                    newproduct.ProductName = detailedItem.ProductName;
-                    newproduct.Price = detailedItem.Price;
-                    newproduct.ImageUrl = detailedItem.ImageUrl;
-                    newproduct.Description = detailedItem.Description;
-                    newproduct.CategoryId = detailedItem.CategoryId;
-                    newproduct.Stock = detailedItem.Stock;
-
-                    totalsum += item.TotalPrice;
-
-                    var newccartitem = new ResultCartItemDto()
+                    if (Request.Cookies.TryGetValue(cookieName, out string cartData1))
                     {
-                        Quantity = item.Quantity,
-                        ProductId = item.ProductId,
-                        TotalPrice = item.TotalPrice,
-                        Product = newproduct,
-                    };
+                        cartItems = JsonSerializer.Deserialize<CreateCartDto>(cartData1) ?? new CreateCartDto();
+                    }
 
-                    detailedCartItems.CartItems.Add(newccartitem);
-                    
+                    // `GetByIdCartDto` verisini toplamak için bir liste oluşturun
+                    GetByIdCartDto detailedCartItems = new GetByIdCartDto();
+                    detailedCartItems.CartItems = new List<ResultCartItemDto>();
+                    var totalsum = 0;
+                    foreach (var item in cartItems.CartItems)
+                    {
+                        // Veritabanından veya servisten `GetByIdCartDto` tipinde detaylı bilgi alın
+
+                        var detailedItem = await _productservice.GetByIdProductAsync(item.ProductId);
+                        var newproduct = new Product();
+                        newproduct.ProductId = detailedItem.ProductId;
+                        newproduct.ProductName = detailedItem.ProductName;
+                        newproduct.Price = detailedItem.Price;
+                        newproduct.ImageUrl = detailedItem.ImageUrl;
+                        newproduct.Description = detailedItem.Description;
+                        newproduct.CategoryId = detailedItem.CategoryId;
+                        newproduct.Stock = detailedItem.Stock;
+
+                        totalsum += item.TotalPrice;
+
+                        var newccartitem = new ResultCartItemDto()
+                        {
+                            Quantity = item.Quantity,
+                            ProductId = item.ProductId,
+                            TotalPrice = item.TotalPrice,
+                            Product = newproduct,
+                        };
+
+                        detailedCartItems.CartItems.Add(newccartitem);
+
+                    }
+                    detailedCartItems.TotalAmount = totalsum;
+                    return View(detailedCartItems);
                 }
-                detailedCartItems.TotalAmount = totalsum;
-                return View(detailedCartItems);
+                return View();
             }
             else
             {
-                var value = await _cartservices.GetByIdCartAsync(id);
+                var userId = await _useridentityrepository.GetUserIdOnAuth(User);
+                var value = await _cartservices.GetByUserIdCartAsync(userId);
                 return View(value);
             }
         }
@@ -81,21 +90,48 @@ namespace Shoper.WebApp.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    model.CartId = 2;
-                    var cart = await _cartservices.GetByIdCartAsync(model.CartId);
-                    var check = await _cartitemservice.CheckCartItems(model.CartId, model.ProductId);
-                    if (check)
+                    //model.CartId = 2;
+                    var userid = await _useridentityrepository.GetUserIdOnAuth(User);
+                    var checkcart = await _cartservices.CheckCartAsync(userid);
+                    if (checkcart)
                     {
-                        await _cartitemservice.UpdateQuantity(model.CartId, model.ProductId, model.Quantity);
+                        var cart = await _cartservices.GetByUserIdCartAsync(userid);
+                        var check = await _cartitemservice.CheckCartItems(model.CartId, model.ProductId);
+                        if (check)
+                        {
+                            await _cartitemservice.UpdateQuantity(model.CartId, model.ProductId, model.Quantity);
+                        }
+                        else
+                        {
+                            model.CartId = cart.CartId;
+                            await _cartitemservice.CreateCartItemAsync(model);
+                        }
+                        var sumprice = cart.TotalAmount + model.TotalPrice;
+                        await _cartservices.UpdateTotalAmount(model.CartId, sumprice);
                     }
                     else
                     {
-                        await _cartitemservice.CreateCartItemAsync(model);
+                        var newcart = new CreateCartDto { CreatedDate = DateTime.Now, UserId = userid, CartItems=new List<CreateCartItemDto>() };
+                        await _cartservices.CreateCartAsync(newcart);
+
+                        var cart = await _cartservices.GetByUserIdCartAsync(userid);
+                        var check = await _cartitemservice.CheckCartItems(model.CartId, model.ProductId);
+                        if (check)
+                        {
+                            await _cartitemservice.UpdateQuantity(model.CartId, model.ProductId, model.Quantity);
+                        }
+                        else
+                        {
+                            model.CartId = cart.CartId;
+                            await _cartitemservice.CreateCartItemAsync(model);
+                        }
+                        var sumprice = cart.TotalAmount + model.TotalPrice;
+                        await _cartservices.UpdateTotalAmount(model.CartId, sumprice);
                     }
+                    
 
 
-                    var sumprice = cart.TotalAmount + model.TotalPrice;
-                    await _cartservices.UpdateTotalAmount(model.CartId, sumprice);
+                    
                 }
                 else
                 {
@@ -147,7 +183,7 @@ namespace Shoper.WebApp.Controllers
             
         }
         [HttpGet]
-        public async Task<JsonResult> DeleteCartItem(int id)
+        public async Task<JsonResult> DeleteCartItem(int id, int productId)
         {
             try
             {
@@ -178,7 +214,7 @@ namespace Shoper.WebApp.Controllers
                         };
                     }
 
-                    var existingItem = cartItems.CartItems.FirstOrDefault(item => item.ProductId == id);
+                    var existingItem = cartItems.CartItems.FirstOrDefault(item => item.ProductId == productId);
                     if (existingItem != null)
                     {
                         cartItems.CartItems.Remove(existingItem);

@@ -31,6 +31,11 @@ namespace Shoper.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(filter);
+        }
+
         public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
@@ -55,6 +60,11 @@ namespace Shoper.Persistence.Repositories
         {
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<T>> WhereAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _context.Set<T>().Where(filter).ToListAsync();
         }
     }
 }

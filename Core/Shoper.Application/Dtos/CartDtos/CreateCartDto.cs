@@ -15,5 +15,7 @@ namespace Shoper.Application.Dtos.CartDtos
         public int CustomerId { get; set; }
         //public Customer? Customer { get; set; }
         public ICollection<CreateCartItemDto> CartItems { get; set; }
+        public string? UserId { get; set; }
+
     }
 }

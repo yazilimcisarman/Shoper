@@ -98,6 +98,7 @@
             success: function (response) {
                 if (response.success) {
                     alert('Ürün sepete eklendi!');
+                    location.reload();
                 } else {
                     alert('Bir hata oluştu: ' + response.error);
                 }

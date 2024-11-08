@@ -24,7 +24,9 @@ namespace Shoper.Application.Usecasess.CustomerServices
             {
                 FirstName = createCustomerDto.FirstName,
                 LastName = createCustomerDto.LastName,
-                Email = createCustomerDto.Email
+                Email = createCustomerDto.Email,
+                UserId = createCustomerDto.UserId,
+                PhoneNumber = createCustomerDto.PhoneNumber,
             });
         }
 
@@ -43,6 +45,8 @@ namespace Shoper.Application.Usecasess.CustomerServices
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
+                UserId = x.UserId,
+                PhoneNumber = x.PhoneNumber,
                 //Orders = x.Orders,
             }).ToList();
         }
@@ -56,6 +60,23 @@ namespace Shoper.Application.Usecasess.CustomerServices
                 FirstName = values.FirstName,
                 LastName = values.LastName,
                 Email = values.Email,
+                UserId = values.UserId,
+                PhoneNumber = values.PhoneNumber,
+                //Orders = values.Orders,
+            };
+        }
+
+        public async Task<GetByIdCustomerDto> GetCustomerByUserId(string userid)
+        {
+            var customer = await _repository.FirstOrDefaultAsync(x => x.UserId == userid);
+            return new GetByIdCustomerDto
+            {
+                CustomerId = customer.CustomerId,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email,
+                UserId = customer.UserId,
+                PhoneNumber = customer.PhoneNumber,
                 //Orders = values.Orders,
             };
         }
@@ -66,6 +87,7 @@ namespace Shoper.Application.Usecasess.CustomerServices
             values.FirstName = updateCustomerDto.FirstName;
             values.LastName = updateCustomerDto.LastName;
             values .Email = updateCustomerDto.Email;
+            values.PhoneNumber = updateCustomerDto.PhoneNumber;
             //values .Orders = updateCustomerDto.Orders;
             await _repository.UpdateAsync(values);
         }

@@ -14,5 +14,6 @@ namespace Shoper.Application.Usecasess.CustomerServices
         Task CreateCustomerAsync(CreateCustomerDto createCustomerDto);
         Task UpdateCustomerAsync(UpdateCustomerDto updateCustomerDto);
         Task DeleteCustomerAsync(int id);
+        Task<GetByIdCustomerDto> GetCustomerByUserId(string userid);
     }
 }

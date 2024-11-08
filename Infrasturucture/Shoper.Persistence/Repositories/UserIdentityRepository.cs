@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,12 @@ namespace Shoper.Persistence.Repositories
         public Task<string> ChangePasswordAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<string> GetUserIdOnAuth(ClaimsPrincipal user)
+        {
+            string userId = _userManager.GetUserId(user); // Giriş yapan kullanıcının ID'sini alır
+            return userId;
         }
 
         public Task<bool> IsUserAuthenticated()
@@ -82,7 +89,12 @@ namespace Shoper.Persistence.Repositories
             var result = await _userManager.CreateAsync(user,dto.Password);
             if (result.Succeeded)
             {
-                return "Üye olundu.";
+                var result1 = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, true, false);
+                if (result1.Succeeded) {
+                    return user.Id;
+
+                }
+                return "Üye olundu. Giri; yapilmadi";
             }
             else
             {
