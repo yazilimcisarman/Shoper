@@ -27,6 +27,7 @@ namespace Shoper.Persistence.Context
         public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<Help> Helps { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Favorites> Favorites { get; set; }
 
         //public List<Customer> GetAllCustomer()
         //{

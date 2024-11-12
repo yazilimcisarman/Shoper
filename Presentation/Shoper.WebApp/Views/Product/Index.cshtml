@@ -101,6 +101,9 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
                                 <a href="/Product/Detail?id=@item.ProductId" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Detay</a>
+
+                                <a href="#" class="btn btn-sm text-dark p-0" onclick="addToFavori(@item.ProductId)"><i class="fas fa-heart text-primary mr-1"></i>Favori</a>
+
                                 <a href="#" class="btn btn-sm text-dark p-0" onclick="addToCart(@item.ProductId,@item.Price)"><i class="fas fa-shopping-cart text-primary mr-1"></i>Sepete Ekle</a>
                             </div>
                         </div>
@@ -151,6 +154,26 @@
             success: function (response) {
                 if (response.success) {
                     alert('Ürün sepete eklendi!');
+                    location.reload();
+                } else {
+                    alert('Bir hata oluştu: ' + response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('Bir hata oluştu: ' + error);
+            }
+        });
+    }
+</script>
+<script>
+    function addToFavori(id) {
+        $.ajax({
+            url: '/Favorites/Add',
+            type: 'POST',
+            data: { productid: id },
+            success: function (response) {
+                if (response.success) {
+                    alert('Ürün favorilere eklendi!');
                     location.reload();
                 } else {
                     alert('Bir hata oluştu: ' + response.error);

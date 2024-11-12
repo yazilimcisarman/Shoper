@@ -96,10 +96,10 @@ namespace Shoper.WebApp.Controllers
                     if (checkcart)
                     {
                         var cart = await _cartservices.GetByUserIdCartAsync(userid);
-                        var check = await _cartitemservice.CheckCartItems(model.CartId, model.ProductId);
+                        var check = await _cartitemservice.CheckCartItems(cart.CartId, model.ProductId);
                         if (check)
                         {
-                            await _cartitemservice.UpdateQuantity(model.CartId, model.ProductId, model.Quantity);
+                            await _cartitemservice.UpdateQuantity(cart.CartId, model.ProductId, model.Quantity);
                         }
                         else
                         {
@@ -107,7 +107,7 @@ namespace Shoper.WebApp.Controllers
                             await _cartitemservice.CreateCartItemAsync(model);
                         }
                         var sumprice = cart.TotalAmount + model.TotalPrice;
-                        await _cartservices.UpdateTotalAmount(model.CartId, sumprice);
+                        await _cartservices.UpdateTotalAmount(cart.CartId, sumprice);
                     }
                     else
                     {
