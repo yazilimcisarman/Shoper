@@ -191,16 +191,13 @@ namespace Shoper.WebApp.Controllers
                 }
                 string cookieName1 = "cart";
 
-                // 1. Mevcut cart cookie'sini temizle
                 Response.Cookies.Delete(cookieName1);
 
-                // 2. Boş bir CreateCartDto nesnesi oluştur
                 var emptyCart = new CreateCartDto
                 {
-                    CartItems = new List<CreateCartItemDto>() // Boş bir CartItems listesi oluştur
+                    CartItems = new List<CreateCartItemDto>() 
                 };
 
-                // 3. Boş sepeti tekrar cookie olarak ekle
                 var cartData2 = JsonSerializer.Serialize(emptyCart);
                 Response.Cookies.Append(cookieName1, cartData2, new CookieOptions
                 {

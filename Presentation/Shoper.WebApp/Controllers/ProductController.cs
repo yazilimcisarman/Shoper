@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shoper.Application.Usecasess.ProductServices;
+using System.Drawing.Printing;
 
 namespace Shoper.WebApp.Controllers
 {
@@ -12,21 +13,43 @@ namespace Shoper.WebApp.Controllers
             _productService = productService;
         }
 
-        public async Task<IActionResult> Index(int categoryId, decimal minprice, decimal maxprice, string search)
+        public async Task<IActionResult> Index(int categoryId, decimal minprice, decimal maxprice, string search, int pageNumber=1,int pageSize=6 )
         {
             if(categoryId != 0) 
             {
                 var values = await _productService.GetProductByCategory(categoryId);
-                return View(values);
+                var pageproducts = values.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                int totalProductss = values.Count();
+                int totalPagess = (int)Math.Ceiling((double)totalProductss / pageSize);
+
+                // View'e model gönder
+                ViewBag.PageNumber = pageNumber;
+                ViewBag.TotalPages = totalPagess;
+
+                return View(pageproducts);
             }
             if(maxprice != 0)
             {
                 var values = await _productService.GetProductByPrice(minprice, maxprice);
-                return View(values);
+                var pageproduct1 = values.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                int totalProducts1 = values.Count();
+                int totalPages1 = (int)Math.Ceiling((double)totalProducts1 / pageSize);
+
+                // View'e model gönder
+                ViewBag.PageNumber = pageNumber;
+                ViewBag.TotalPages = totalPages1;
+                return View(pageproduct1);
 
             }
             var value = await _productService.GetAllProductAsync();
-            return View(value);
+            var pageproduct = value.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            int totalProducts = value.Count();
+            int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+
+            // View'e model gönder
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.TotalPages = totalPages;
+            return View(pageproduct);
         }
         [HttpPost]
         public async Task<IActionResult> Index (string search)

@@ -53,7 +53,11 @@ namespace Shoper.Persistence.Repositories
 
         public async Task<string> GetUserIdOnAuth(ClaimsPrincipal user)
         {
-            string userId = _userManager.GetUserId(user); // Giriş yapan kullanıcının ID'sini alır
+            string userId = _userManager.GetUserId(user);
+            if(userId == null)
+            {
+                userId = "1111111111111";
+            }
             return userId;
         }
 
