@@ -15,5 +15,6 @@ namespace Shoper.Application.Usecasess.HelpServices
         Task CreateHelpAsync(CreateHelpDto model);
         Task UpdateHelpAsync(UpdateHelpDto model);
         Task DeleteHelpAsync(int id);
+        Task<List<ResultHelpDto>> GetByEmailHelpAsync(string email);
     }
 }

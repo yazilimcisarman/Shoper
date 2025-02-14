@@ -89,6 +89,47 @@ namespace Shoper.Application.Usecasess.CartServices
             await _repository.DeleteAsync(cart);
         }
 
+        public async Task<List<AdminCartDto>> GetAllAdminCartAsync()
+        {
+            var carts = await _repository.GetAllAsync();
+            var cartItems = await _itemRepository.GetAllAsync();
+            var product = await _productRepository.GetAllAsync();
+            var result = new List<AdminCartDto>();
+            foreach (var item in carts)
+            {
+                var customerdto = await _customerRepository.GetByFilterAsync(cus => cus.UserId == item.UserId);
+                var cartdto = new AdminCartDto
+                {
+                    CartId = item.CartId,
+                    CreatedDate = item.CreatedDate,
+                    TotalAmount = item.TotalAmount,
+                    UserId = item.UserId,
+                    NameSurname = customerdto.FirstName + " " + customerdto.LastName,
+                    CartItems = new List<ResultCartItemDto>()
+                };
+                if(item.CartItems != null)
+                {
+                    foreach (var item1 in item.CartItems)
+                    {
+                        var prodcutdto = await _productRepository.GetByFilterAsync(prd => prd.ProductId == item1.ProductId);
+                        var cartItemddto = new ResultCartItemDto
+                        {
+                            CartId = item1.CartId,
+                            CartItemId = item1.CartItemId,
+                            ProductId = item1.ProductId,
+                            Product = prodcutdto,
+                            Quantity = item1.Quantity,
+                            TotalPrice = item1.TotalPrice,
+                        };
+                        cartdto.CartItems.Add(cartItemddto);
+                    }
+                }
+                result.Add(cartdto);
+            }
+
+            return result;
+        }
+
         public async Task<List<ResultCartDto>> GetAllCartAsync()
         {
             var carts = await _repository.GetAllAsync();

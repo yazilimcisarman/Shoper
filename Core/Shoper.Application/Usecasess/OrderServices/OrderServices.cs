@@ -141,6 +141,7 @@ namespace Shoper.Application.Usecasess.OrderServices
         {
             var values = await _repository.GetByIdAsync(id);
             var ordercustomer = await _repositoryCustomer.GetByIdAsync(values.CustomerId);
+            var orderitemsrepo = await _repositoryOrderItem.WhereAsync(x => x.OrderId == id);
             var result = new GetByIdOrderDto 
             {
                 OrderId = values.OrderId,
@@ -160,7 +161,7 @@ namespace Shoper.Application.Usecasess.OrderServices
                 OrderItems = new List<ResultOrderItemDto>(),
                 UserId = values.UserId,
             };
-            foreach (var item in result.OrderItems)
+            foreach (var item in orderitemsrepo)
             {
                 var orderitemproduct = await _repositoryProduct.GetByIdAsync(item.ProductId);
                 var orderıtemdto = new ResultOrderItemDto
@@ -260,6 +261,13 @@ namespace Shoper.Application.Usecasess.OrderServices
             values.TotalAmount = sum;
 
             await _repository.UpdateAsync(values);
+        }
+
+        public async Task UpdateOrderStatus(int orderId, string orderstatus)
+        {
+            var value = await _repository.GetByIdAsync(orderId);
+            value.OrderStatus = orderstatus;
+            await _repository.UpdateAsync(value);
         }
     }
 }

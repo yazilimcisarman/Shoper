@@ -1,0 +1,42 @@
+﻿@using Shoper.Application.Dtos.HelpDtos
+@model GetByIdHelpDto
+@{
+    var status = "";
+    if(Model.Status == 0)
+    {
+        status = "danger";
+    }
+    else
+    {
+        status = "success";
+    }
+}
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Yardim Detay</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>@Model.Name - @Model.Email - @Model.CreatedDate - <span class="badge badge-@status">.</span> </h3>
+                <p> @Model.Subject</p>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Model.Message</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-rounded btn-success">E-MAIL GONDER</button>
+        </div>
+    </div>
+
+
+</div>

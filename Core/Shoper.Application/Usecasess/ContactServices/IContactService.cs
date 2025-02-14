@@ -15,5 +15,6 @@ namespace Shoper.Application.Usecasess.ContactServices
         Task CreateContactAsync(CreateContactDto model);
         Task UpdateContactAsync(UpdateContactDto model);
         Task DeleteContactAsync(int id);
+        Task<List<ResultContactDto>> GetAllContactsByEmailAsync( string email);
     }
 }

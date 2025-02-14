@@ -1,0 +1,73 @@
+﻿@using Shoper.Application.Dtos.OrderDtos
+@model GetByIdOrderDto
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Siparis Detay</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">@Model.OrderId - @Model.OrderDate - @Model.TotalAmount - @Model.OrderStatus</h5>
+                <p></p>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Urun Adi</th>
+                            <th scope="col">Adet</th>
+                            <th scope="col">Toplam Para</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var f in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>@f.Product.ProductName</td>
+                                <td>@f.Quantity</td>
+                                <td>@f.TotalPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <form method="post" action="/Order/UpdateOrderStatus">
+                <div class="form-group">
+                    <input id="ordrId" type="hidden" class="form-control" name="orderId" value="@Model.OrderId">
+                    <input id="orderStatus" type="hidden" class="form-control" name="orderStatus" value="Siparisiniz Hazirlaniyor.">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-rounded btn-success">Siparisiniz Hazirlaniyor.</button>
+                </div>
+            </form>
+            <form method="post" action="/Order/UpdateOrderStatus">
+                <div class="form-group">
+                    <input id="ordrId" type="hidden" class="form-control" name="orderId" value="@Model.OrderId">
+                    <input id="orderStatus" type="hidden" class="form-control" name="orderStatus" value="Kargoya Verildi.">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-rounded btn-success">Kargoya Verildi.</button>
+                </div>
+            </form>
+            <form method="post" action="/Order/UpdateOrderStatus">
+                <div class="form-group">
+                    <input id="ordrId" type="hidden" class="form-control" name="orderId" value="@Model.OrderId">
+                    <input id="orderStatus" type="hidden" class="form-control" name="orderStatus" value="Teslim Edildi.">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-rounded btn-success">Teslim Edildi.</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

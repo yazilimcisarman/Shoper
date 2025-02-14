@@ -1,6 +1,2 @@
 ﻿
 
-urunler sayfasina sayfalama ekle
-
-footer
-

@@ -171,7 +171,7 @@ namespace Shoper.WebApp.Controllers
                     result.Add(newOrderItem);
                 }
                 dto.UserId = await _userIdentityRepository.GetUserIdOnAuth(User);
-                dto.CustomerId =1;
+                dto.CustomerId =1009;
                 dto.OrderItems = result;
                 dto.OrderStatus = "Siparişiniz Alındı.";
                 await _orderServices.CreateOrderAsync(dto);

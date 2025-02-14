@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Shoper.Application.Interfaces;
 using Shoper.Application.Interfaces.ICartItemsRepository;
 using Shoper.Application.Interfaces.ICartsRepository;
+using Shoper.Application.Interfaces.IFavoritesRepository;
 using Shoper.Application.Interfaces.IOrderRepository;
 using Shoper.Application.Interfaces.IProductsRepository;
 using Shoper.Application.Usecasess.AccountServices;
@@ -23,6 +24,7 @@ using Shoper.Persistence.Context.Identity;
 using Shoper.Persistence.Repositories;
 using Shoper.Persistence.Repositories.CartItemsRepository;
 using Shoper.Persistence.Repositories.CartsRepository;
+using Shoper.Persistence.Repositories.FavoritesRepository;
 using Shoper.Persistence.Repositories.OrdersRepository;
 using Shoper.Persistence.Repositories.ProductsRepository;
 
@@ -48,6 +50,7 @@ builder.Services.AddScoped<IHelpService, HelpService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<ICustomerServices, CustomerServices>();
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
+builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 {
     var configuration = builder.Configuration;

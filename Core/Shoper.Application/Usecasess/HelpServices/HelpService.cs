@@ -5,6 +5,7 @@ using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,6 +50,22 @@ namespace Shoper.Application.Usecasess.HelpServices
                 Subject = x.Subject,
                 Message = x.Message,
                 CreatedDate= x.CreatedDate,
+                Status = x.Status,
+            }).ToList();
+        }
+
+        public async Task<List<ResultHelpDto>> GetByEmailHelpAsync(string email)
+        {
+            Expression<Func<Help, bool>> filter = x => x.Email == email;
+            var helps = await _repository.WhereAsync(filter);
+            return helps.Select(x => new ResultHelpDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email,
+                Subject = x.Subject,
+                Message = x.Message,
+                CreatedDate = x.CreatedDate,
                 Status = x.Status,
             }).ToList();
         }

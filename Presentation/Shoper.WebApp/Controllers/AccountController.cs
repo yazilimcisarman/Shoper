@@ -58,6 +58,7 @@ namespace Shoper.WebApp.Controllers
                 FirstName = dto.Name,
                 LastName = dto.Surname,
                 UserId = values,
+                PhoneNumber = dto.PhoneNumber,
             };
             await _customerServices.CreateCustomerAsync(customer);
             return RedirectToAction("Index", "Home");

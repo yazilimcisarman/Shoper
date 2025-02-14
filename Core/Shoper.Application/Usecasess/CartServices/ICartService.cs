@@ -18,6 +18,7 @@ namespace Shoper.Application.Usecasess.CartServices
         Task UpdateTotalAmount(int cartId, decimal totalAmount);
         Task<GetByIdCartDto> GetByUserIdCartAsync(string userId);
         Task<bool> CheckCartAsync(string userId);
+        Task<List<AdminCartDto>> GetAllAdminCartAsync();
 
     }
 }

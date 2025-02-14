@@ -18,5 +18,6 @@ namespace Shoper.Application.Usecasess.FavoritesServices
         Task<List<ResultFavoritesDto>> GetFavoritesByUserId(string userid);
         Task<bool> CheckFavoritesByUseridAndProductId(string userid, int productid);
         Task<int> GetCountByUserId(string userid);
+        Task<List<AdminFavoritesDto>> GetAdminFavoritesList();
     }
 }

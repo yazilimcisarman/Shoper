@@ -12,7 +12,7 @@ namespace Shoper.Application.Usecasess.CustomerServices
     public class CustomerServices : ICustomerServices
     {
         private readonly IRepository<Customer> _repository;
-
+        
         public CustomerServices(IRepository<Customer> repository)
         {
             _repository = repository;

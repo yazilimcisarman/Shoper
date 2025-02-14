@@ -1,6 +1,7 @@
 ﻿using Shoper.Application.Dtos.CustomerDtos;
 using Shoper.Application.Dtos.FavoritesDtos;
 using Shoper.Application.Interfaces;
+using Shoper.Application.Interfaces.IFavoritesRepository;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace Shoper.Application.Usecasess.FavoritesServices
     {
         private readonly IRepository<Favorites> _repository;
         private readonly IRepository<Product> _productRepository;
+        private readonly IFavoritesRepository _favoritesRepository;
 
-        public FavoritesService(IRepository<Favorites> repository, IRepository<Product> productRepository)
+        public FavoritesService(IRepository<Favorites> repository, IRepository<Product> productRepository, IFavoritesRepository favoritesRepository)
         {
             _repository = repository;
             _productRepository = productRepository;
+            _favoritesRepository = favoritesRepository;
         }
 
         public async Task<bool> CheckFavoritesByUseridAndProductId(string userid, int productid)
@@ -49,6 +52,12 @@ namespace Shoper.Application.Usecasess.FavoritesServices
         {
             var favorite = await _repository.GetByIdAsync(id);
             await _repository.DeleteAsync(favorite);
+        }
+
+        public Task<List<AdminFavoritesDto>> GetAdminFavoritesList()
+        {
+            var value = _favoritesRepository.GetFavoritesGroupUserId();
+            return value;
         }
 
         public async Task<List<ResultFavoritesDto>> GetAllFavoritesAsync()

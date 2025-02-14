@@ -21,7 +21,7 @@ namespace Shoper.WebApp.Controllers
         public async Task<IActionResult> CreateHelp(CreateHelpDto dto)
         {
             dto.CreatedDate=DateTime.Now;
-            dto.Status = 1;
+            dto.Status = 0;
             await _services.CreateHelpAsync(dto);
             return RedirectToAction("Index");
         }

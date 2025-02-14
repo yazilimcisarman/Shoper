@@ -5,6 +5,7 @@ using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,20 @@ namespace Shoper.Application.Usecasess.ContactServices
         {
             var contacts = await _repository.GetAllAsync();
             return contacts.Select(x => new ResultContactDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email,
+                Message = x.Message,
+                CreatedDate = x.CreatedDate,
+            }).ToList();
+        }
+
+        public async Task<List<ResultContactDto>> GetAllContactsByEmailAsync(string email)
+        {
+            Expression<Func<Contact, bool>> filter = x => x.Email == email;
+            var contact = await _repository.WhereAsync(filter);
+            return contact.Select(x => new ResultContactDto
             {
                 Id = x.Id,
                 Name = x.Name,

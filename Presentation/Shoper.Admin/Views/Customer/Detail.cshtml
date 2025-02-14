@@ -1,0 +1,200 @@
+﻿@using Shoper.Application.Dtos.CustomerDtos
+@model CustomerDetailDto
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Musteri Detay</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card"> 
+            <div class="card-body">
+                <h3 class="card-title">@Model.Customer.FirstName  @Model.Customer.LastName</h3>
+                @* <p class="card-text"></p> *@
+                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Sepet</h5>
+                <p>@Model.Cart.TotalAmount - @Model.Cart.CreatedDate.ToString("dd/MM/yyyy")</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Urun Adi</th>
+                            <th scope="col">Adet</th>
+                            <th scope="col">Toplam Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Cart.CartItems)
+                        {
+                            <tr>
+                                <td>@item.Product.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.TotalPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Iletisim</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in Model.Contacts)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">@item.CreatedDate</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@item.Message</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Favoriler</h5>
+                <p></p>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Urun Adi</th>
+                            <th scope="col">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Favorites)
+                        {
+                            <tr>
+                                <td>@item.Product.ProductName</td>
+                                <td>@item.CreatedDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Destek</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in Model.Helps)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">@item.Subject --- @item.CreatedDate</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@item.Message</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Siparisler</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in Model.Orders)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">@item.OrderId / @item.OrderDate / @item.TotalAmount / @item.OrderStatus</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Urun Adi</th>
+                                        <th scope="col">Adet</th>
+                                        <th scope="col">Toplam Fiyat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item1 in item.OrderItems)
+                                    {
+                                        <tr>
+                                            <td>@item1.Product.ProductName</td>
+                                            <td>@item1.Quantity</td>
+                                            <td>@item1.TotalPrice</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Abonelikler</h5>
+                <p></p>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Subscribe)
+                        {
+                            <tr>
+                                <td>@item.SubcribeDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

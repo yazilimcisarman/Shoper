@@ -1,0 +1,43 @@
+﻿
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="section-block" id="basicform">
+            <h3 class="section-title">Urun Ekle</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/Product/CreateProduct">
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Urun Adi</label>
+                        <input id="inputText3" type="text" class="form-control" name="productname">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Urun Aciklamasi</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Urun Fiyati</label>
+                        <input id="inputText3" type="text" class="form-control" name="price">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputText4" class="col-form-label">Stok</label>
+                        <input id="inputText4" type="number" class="form-control" name="stock">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Urun Fotograf Linki</label>
+                        <input id="inputText3" type="text" class="form-control" name="imageurl">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputText4" class="col-form-label">Kategori</label>
+                        <input id="inputText4" type="number" class="form-control" name="categoryId">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-rounded btn-success">EKLE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

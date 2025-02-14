@@ -19,5 +19,6 @@ namespace Shoper.Application.Usecasess.OrderServices
         Task<List<ResultCityDto>> GetAllCity();
         Task<List<ResultTownDto>> GetTownByCityId(int cityId);
         Task<List<ResultOrderDto>> GetOrderByUserId(string userId);
+        Task UpdateOrderStatus(int orderId,string orderstatus);
     }
 }

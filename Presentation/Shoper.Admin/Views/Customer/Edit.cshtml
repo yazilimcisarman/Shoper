@@ -1,0 +1,37 @@
+﻿@using Shoper.Application.Dtos.CustomerDtos
+@model GetByIdCustomerDto
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="section-block" id="basicform">
+            <h3 class="section-title">Musteri Guncelle</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/customer/EditCustomer">
+                    <input type="hidden" name="customerId" value="@Model.CustomerId" />
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Musteri Adi</label>
+                        <input id="inputText3" type="text" class="form-control" name="firstname" value="@Model.FirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Musteri Soyadi</label>
+                        <input id="inputText3" type="text" class="form-control" name="lastname" value="@Model.LastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Musteri Emaili</label>
+                        <input id="inputText3" type="text" class="form-control" name="email" value="@Model.Email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Musteri Telefon Numarasi</label>
+                        <input id="inputText3" type="text" class="form-control" name="phonenumber" value="@Model.PhoneNumber" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-rounded btn-success">GUNCELLE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

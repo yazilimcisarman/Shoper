@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents", "Documents\Documents.csproj", "{828932D5-243D-4A5C-980A-D549ABE9991A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoper.WebApp", "Presentation\Shoper.WebApp\Shoper.WebApp.csproj", "{680E65CE-6614-47B8-9C45-4F80B22A3DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shoper.WebApp", "Presentation\Shoper.WebApp\Shoper.WebApp.csproj", "{680E65CE-6614-47B8-9C45-4F80B22A3DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoper.Admin", "Presentation\Shoper.Admin\Shoper.Admin.csproj", "{9936D61E-6BB3-45B6-AC65-563AA58087D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{680E65CE-6614-47B8-9C45-4F80B22A3DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{680E65CE-6614-47B8-9C45-4F80B22A3DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{680E65CE-6614-47B8-9C45-4F80B22A3DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9936D61E-6BB3-45B6-AC65-563AA58087D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9936D61E-6BB3-45B6-AC65-563AA58087D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9936D61E-6BB3-45B6-AC65-563AA58087D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9936D61E-6BB3-45B6-AC65-563AA58087D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{6523CCF4-4341-4741-8DE1-29BE20E4526D} = {3A059E55-4F6E-48E3-99C0-AD14C1FD4C8D}
 		{828932D5-243D-4A5C-980A-D549ABE9991A} = {7E897946-E928-48F3-A003-5C9566344628}
 		{680E65CE-6614-47B8-9C45-4F80B22A3DDA} = {9C86D99A-AB05-47E8-AA3C-E3A60A9AB2D2}
+		{9936D61E-6BB3-45B6-AC65-563AA58087D4} = {9C86D99A-AB05-47E8-AA3C-E3A60A9AB2D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE1BAE73-34E1-420A-9D1C-36980B923D4A}

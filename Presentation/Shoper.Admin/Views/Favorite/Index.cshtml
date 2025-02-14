@@ -1,0 +1,47 @@
+﻿@using Shoper.Application.Dtos.FavoritesDtos
+@model List<AdminFavoritesDto>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Favorilerimiz</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        @foreach (var item in Model)
+        {
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">@item.NameSurname</h5>
+                    <p></p>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Urun Adi</th>
+                                <th scope="col">Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var f in item.FavoritesDetails)
+                            {
+                                <tr>
+                                    <td>@f.Product.ProductName</td>
+                                    <td>@f.CreatedDate</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
