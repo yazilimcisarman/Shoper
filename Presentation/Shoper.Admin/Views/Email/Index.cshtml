@@ -1,0 +1,46 @@
+﻿@using Shoper.Application.Dtos.EMailDtos
+@model SendEmailDto
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Email Gonder</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/Email/Send">
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Gonderen Email</label>
+                        <input id="inputText3" type="text" class="form-control" name="senderEmail" >
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Gonderen Sifre</label>
+                        <input id="inputText3" type="password" class="form-control" name="senderPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Alici Email</label>
+                        <input id="inputText3" type="text" class="form-control" name="reciverEmail" value="@Model.ReciverEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText3" class="col-form-label">Konu</label>
+                        <input id="inputText3" type="text" class="form-control" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Mesaj</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="message"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-rounded btn-success">Gonder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

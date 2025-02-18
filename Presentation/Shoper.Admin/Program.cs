@@ -13,6 +13,7 @@ using Shoper.Application.Usecasess.CartServices;
 using Shoper.Application.Usecasess.CategoryServices;
 using Shoper.Application.Usecasess.ContactServices;
 using Shoper.Application.Usecasess.CustomerServices;
+using Shoper.Application.Usecasess.EmailServices;
 using Shoper.Application.Usecasess.FavoritesServices;
 using Shoper.Application.Usecasess.HelpServices;
 using Shoper.Application.Usecasess.OrderItemServices;
@@ -52,6 +53,7 @@ builder.Services.AddScoped<ICustomerServices, CustomerServices>();
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 {
     var configuration = builder.Configuration;
