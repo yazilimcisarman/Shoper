@@ -26,24 +26,35 @@
 <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function (){
-            var chart = c3.generate({
-        bindto: "#account",
-        color: { pattern: ["#5969ff", "#ff407b", "#25d5f2", "#ffc750"] },
-        data: {
-            // iris data from R
-            columns: [
-                ['30 days', 120],
-                ['60 days', 70],
-                ['90 days', 50],
-                 ['90+ Days', 30],
-                 ['90- Days', 30],
-                 ['40 Days', 90],
+        $.ajax({
+            url: "/Home/GetOrderWithCategory", // API URL'sini doğru ayarla!
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    // Gelen veriyi grafiğe uygun hale getirelim
+                    var chartData = [];
+                    response.data.forEach(item => {
+                        chartData.push([item.categoryName, item.totalOrderCount]); // API'den gelen veri formatına göre düzenle!
+                    });
 
-            ],
-            type: 'pie',
-            
-        }
-    });
+                    // Grafiği oluştur
+                    var chart = c3.generate({
+                        bindto: "#account",
+                        color: { pattern: ["#5969ff", "#ff407b", "#25d5f2", "#ffc750"] },
+                        data: {
+                            columns: chartData,
+                            type: 'pie'
+                        }
+                    });
+                } else {
+                    console.error("Veri alınırken hata oluştu:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hatası:", error);
+            }
+        });
     });
 </script>
 
