@@ -1,6 +1,7 @@
 ﻿using Shoper.Application.Dtos.CityDtos;
 using Shoper.Application.Dtos.OrderDtos;
 using Shoper.Application.Dtos.TownDtos;
+using Shoper.Application.Usecasess.DashboardDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace Shoper.Application.Usecasess.OrderServices
         Task<List<ResultTownDto>> GetTownByCityId(int cityId);
         Task<List<ResultOrderDto>> GetOrderByUserId(string userId);
         Task UpdateOrderStatus(int orderId,string orderstatus);
+        Task<List<SalesWithCategory>> GetOrderByKategori(); 
     }
 }

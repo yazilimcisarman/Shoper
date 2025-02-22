@@ -2,11 +2,48 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@model List<ResultCategoryDto>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p>shoper admin projesi basliyor</p>
-    
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Dashboard</h2>
+            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Kategori Bazli Satislar</h5>
+            <div class="card-body">
+                <div id="account" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function (){
+            var chart = c3.generate({
+        bindto: "#account",
+        color: { pattern: ["#5969ff", "#ff407b", "#25d5f2", "#ffc750"] },
+        data: {
+            // iris data from R
+            columns: [
+                ['30 days', 120],
+                ['60 days', 70],
+                ['90 days', 50],
+                 ['90+ Days', 30],
+                 ['90- Days', 30],
+                 ['40 Days', 90],
+
+            ],
+            type: 'pie',
+            
+        }
+    });
+    });
+</script>
+

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shoper.Admin.Models;
 using Shoper.Application.Usecasess.CategoryServices;
+using Shoper.Application.Usecasess.OrderServices;
 using System.Diagnostics;
 
 namespace Shoper.Admin.Controllers
@@ -9,11 +10,13 @@ namespace Shoper.Admin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICategoryServices _categoryServices;
+        private readonly IOrderServices _orderServices;
 
-        public HomeController(ILogger<HomeController> logger, ICategoryServices categoryServices)
+        public HomeController(ILogger<HomeController> logger, ICategoryServices categoryServices, IOrderServices orderServices)
         {
             _logger = logger;
             _categoryServices = categoryServices;
+            _orderServices = orderServices;
         }
 
         public async Task<IActionResult> Index()
@@ -32,5 +35,18 @@ namespace Shoper.Admin.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> GetOrderWithCategory()
+        {
+            try
+            {
+                var value = await _orderServices.GetOrderByKategori();
+                return Json(new { success = true, data = value });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        } 
     }
 }

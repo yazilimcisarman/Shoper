@@ -1,9 +1,12 @@
-﻿using Shoper.Application.Dtos.CityDtos;
+﻿using Shoper.Application.Dtos.CategoryDtos;
+using Shoper.Application.Dtos.CityDtos;
 using Shoper.Application.Dtos.OrderDtos;
 using Shoper.Application.Dtos.OrderItemDtos;
+using Shoper.Application.Dtos.ProductDtos;
 using Shoper.Application.Dtos.TownDtos;
 using Shoper.Application.Interfaces;
 using Shoper.Application.Interfaces.IOrderRepository;
+using Shoper.Application.Usecasess.DashboardDtos;
 using Shoper.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,15 +23,17 @@ namespace Shoper.Application.Usecasess.OrderServices
         private readonly IRepository<OrderItem> _repositoryOrderItem;
         private readonly IRepository<Customer> _repositoryCustomer;
         private readonly IRepository<Product> _repositoryProduct;
+        private readonly IRepository<Category> _repositoryCategory;
         private readonly IOrderRepository _orderRepository;
 
-        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct, IOrderRepository orderRepository)
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct, IOrderRepository orderRepository, IRepository<Category> repositoryCategory)
         {
             _repository = repository;
             _repositoryOrderItem = repositoryOrderItem;
             _repositoryCustomer = repositoryCustomer;
             _repositoryProduct = repositoryProduct;
             _orderRepository = orderRepository;
+            _repositoryCategory = repositoryCategory;
         }
 
         public async Task CreateOrderAsync(CreateOrderDto model)
@@ -176,6 +181,80 @@ namespace Shoper.Application.Usecasess.OrderServices
                 result.OrderItems.Add(orderıtemdto);
             }
             return result;
+        }
+
+        public async Task<List<SalesWithCategory>> GetOrderByKategori()
+        {
+            var values = await _repository.GetAllAsync();
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
+            var result = new List<DashboardOrderDto>();
+            foreach (var item in values)
+            {
+                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                var orderdto = new DashboardOrderDto
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalAmount = item.TotalAmount,
+                    OrderStatus = item.OrderStatus,
+                    //BillingAdress = item.BillingAdress,
+                    ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
+                    //PaymentMethod = item.PaymentMethod,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
+                    OrderItems = new List<DashboardOrderItemDto>(),
+                    UserId = item.UserId,
+                };
+                foreach (var item1 in item.OrderItems)
+                {
+                    var orderıtemproduct = await _repositoryProduct.GetByIdAsync(item1.ProductId);
+                    var category = await _repositoryCategory.GetByIdAsync(orderıtemproduct.CategoryId);
+                    var newcategory = new GetByIdCategoryDto
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.CategoryName,
+                    };
+                    var dashboardproduct = new DashboardProductDto
+                    {
+                        ProductId = orderıtemproduct.ProductId,
+                        ProductName = orderıtemproduct.ProductName,
+                        Description = orderıtemproduct.Description,
+                        Price = orderıtemproduct.Price,
+                        Stock = orderıtemproduct.Stock,
+                        ImageUrl = orderıtemproduct.ImageUrl,
+                        CategoryId = orderıtemproduct.CategoryId,
+                        Category = newcategory,
+                    };
+                    var orderıtemdto = new DashboardOrderItemDto
+                    {
+                        OrderId = item1.OrderId,
+                        ProductId = item1.ProductId,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                        OrderItemId = item1.OrderItemId,
+                        Product = dashboardproduct,
+
+                    };
+                    orderdto.OrderItems.Add(orderıtemdto);
+                }
+                result.Add(orderdto);
+            }
+            var result1 = result
+                .SelectMany(x => x.OrderItems)
+                .GroupBy(y => y.Product.Category.CategoryName)
+                .Select(z => new SalesWithCategory
+                {
+                    Categoryname = z.Key,
+                    Totalsales = z.Sum(y => y.TotalPrice)
+                })
+                .OrderByDescending( a => a.Totalsales).ToList();
+
+            return result1;
         }
 
         public async Task<List<ResultOrderDto>> GetOrderByUserId(string userId)
