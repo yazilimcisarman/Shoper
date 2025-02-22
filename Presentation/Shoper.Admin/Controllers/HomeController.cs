@@ -84,5 +84,17 @@ namespace Shoper.Admin.Controllers
                 return Json(new { success = false, error = ex.Message });
             }
         }
+        public async Task<IActionResult> GetDashboardCards()
+        {
+            try
+            {
+                var value = await _orderServices.GetDashboardCards();
+                return Json(new { success = true, data = value });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
     }
 }

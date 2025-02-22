@@ -25,5 +25,6 @@ namespace Shoper.Application.Usecasess.OrderServices
         Task<List<DashboardSoledProductDto>> GetSoledProducts();
         Task<List<DashboardOrderStatusDto>> GetOrderStatusGrafiks();
         Task<List<SalesTrendDto>> GetSalesTrends();
+        Task<DashboardCardsDto> GetDashboardCards();
     }
 }

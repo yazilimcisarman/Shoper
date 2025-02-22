@@ -24,9 +24,10 @@ namespace Shoper.Application.Usecasess.OrderServices
         private readonly IRepository<Customer> _repositoryCustomer;
         private readonly IRepository<Product> _repositoryProduct;
         private readonly IRepository<Category> _repositoryCategory;
+        private readonly IRepository<CartItem> _repositoryCartItem;
         private readonly IOrderRepository _orderRepository;
 
-        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct, IOrderRepository orderRepository, IRepository<Category> repositoryCategory)
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> repositoryOrderItem, IRepository<Customer> repositoryCustomer, IRepository<Product> repositoryProduct, IOrderRepository orderRepository, IRepository<Category> repositoryCategory, IRepository<CartItem> repositoryCartItem)
         {
             _repository = repository;
             _repositoryOrderItem = repositoryOrderItem;
@@ -34,6 +35,7 @@ namespace Shoper.Application.Usecasess.OrderServices
             _repositoryProduct = repositoryProduct;
             _orderRepository = orderRepository;
             _repositoryCategory = repositoryCategory;
+            _repositoryCartItem = repositoryCartItem;
         }
 
         public async Task CreateOrderAsync(CreateOrderDto model)
@@ -180,6 +182,25 @@ namespace Shoper.Application.Usecasess.OrderServices
 				};
                 result.OrderItems.Add(orderıtemdto);
             }
+            return result;
+        }
+
+        public async Task<DashboardCardsDto> GetDashboardCards()
+        {
+            var result = new DashboardCardsDto();
+
+            var totalorder = await _repository.GetAllAsync();
+            result.TotalOrders = totalorder.Count();
+
+            var totalcustomer = await _repositoryCustomer.GetAllAsync();
+            result.TotalCustomers = totalcustomer.Count();
+
+            var totalcart = await _repositoryCartItem.GetAllAsync();
+            result.TotalCartItemsProducts = totalcart.GroupBy(y => y.ProductId).Select(x => x.Key).Count();
+
+            var crisiticstock = await _repositoryProduct.GetAllAsync();
+            result.CriticStockProducts = crisiticstock.Where(x => x.Stock < 10).Count();
+
             return result;
         }
 
