@@ -18,10 +18,37 @@
         <div class="card">
             <h5 class="card-header">Kategori Bazli Satislar</h5>
             <div class="card-body">
-                <div id="account" style="height: 300px;"></div>
+                <div id="saleswithcategory" style="height: 300px;"></div>
             </div>
         </div>
     </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">En Cok Satilan Urun</h5>
+            <div class="card-body">
+                <div id="topsoledproducts" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Siparis Durumlari</h5>
+            <div class="card-body">
+                <div id="orderstatus" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Satis Trendleri</h5>
+            <div class="card-body">
+                <div id="salestrends" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+   
 </div>
 <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script>
@@ -35,12 +62,12 @@
                     // Gelen veriyi grafiğe uygun hale getirelim
                     var chartData = [];
                     response.data.forEach(item => {
-                        chartData.push([item.categoryName, item.totalOrderCount]); // API'den gelen veri formatına göre düzenle!
+                        chartData.push([item.categoryname, item.totalsales]); // API'den gelen veri formatına göre düzenle!
                     });
 
                     // Grafiği oluştur
                     var chart = c3.generate({
-                        bindto: "#account",
+                        bindto: "#saleswithcategory",
                         color: { pattern: ["#5969ff", "#ff407b", "#25d5f2", "#ffc750"] },
                         data: {
                             columns: chartData,
@@ -57,4 +84,135 @@
         });
     });
 </script>
+    <script>
+        $(document).ready(function () {
+        $.ajax({
+            url: "/Home/GetSoledProducts", // API URL'sini doğru ayarla!
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    // Gelen veriyi grafiğe uygun hale getirelim
+                    var chartData = [];
+                    response.data.forEach(item => {
+                        chartData.push([item.productName, item.totalSoled]); // API'den gelen veri formatına göre düzenle!
+                    });
+
+                    // Grafiği oluştur
+                    var chart = c3.generate({
+                        bindto: '#topsoledproducts',
+                        data: {
+                            columns: chartData,
+                            type: 'bar'
+                        },
+                        bar: {
+                            width: {
+                                ratio: 0.5
+                            }
+                        },
+                        axis: {
+                            x: {
+                                type: 'category',
+                                categories: ['Ürünler']
+                            },
+                            y: {
+                                label: 'Satış Miktarı'
+                            }
+                        }
+                    });
+                } else {
+                    console.error("Veri alınırken hata oluştu:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hatası:", error);
+            }
+        });
+    });
+    </script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Home/GetOrderStatus", // API URL'sini doğru ayarla!
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    // Gelen veriyi grafiğe uygun hale getirelim
+                    var chartData = [];
+                    response.data.forEach(item => {
+                        chartData.push([item.status, item.count]); // API'den gelen veri formatına göre düzenle!
+                    });
+
+                    // Grafiği oluştur
+                    var chart = c3.generate({
+                        bindto: "#orderstatus",
+                        color: { pattern: ["#5969ff", "#ff407b", "#25d5f2", "#ffc750"] },
+                        data: {
+                            columns: chartData,
+                            type: 'pie'
+                        }
+                    });
+                } else {
+                    console.error("Veri alınırken hata oluştu:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hatası:", error);
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Home/GetSalesTrends", // API URL'sini doğru ayarla!
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    console.log(response);
+                    var months = response.data.map(function (item) { return item.months; });
+                    var totalSales = response.data.map(function (item) { return item.salesCount; });
+                    var totalRevenue = response.data.map(function (item) { return item.totalAmount; });
+                    console.log(months);
+                    console.log(totalSales);
+                    console.log(totalRevenue);
+                    // C3.js ile grafiği oluşturuyoruz
+                    var chart = c3.generate({
+                        bindto: '#salestrends',  // Grafiği bağlamak için HTML elementi
+                        data: {
+                            x: 'x',  // X ekseni için "x" veri adını belirtiyoruz
+                            columns: [
+                                ['x'].concat(months), // Aylar
+                                ['Toplam Satis'].concat(totalSales), // Toplam satışlar
+                                ['Toplam Para'].concat(totalRevenue) // Toplam gelir
+                            ],
+                            types: {
+                                'Toplam Satis': 'line',  // Satışları çizgi olarak gösteriyoruz
+                                    'Toplam Para': 'line' // Gelirleri de çizgi olarak gösteriyoruz
+                            }
+                        },
+                        axis: {
+                            x: {
+                                type: 'category',  // X ekseni kategorik olacak (aylar)
+                                tick: {
+                                    rotate: 45, // X eksenindeki ay isimlerini 45 derece döndürebilirsiniz
+                                    multiline: false
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error("Veri alınırken hata oluştu:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hatası:", error);
+            }
+        });
+    });
+</script>
+
 

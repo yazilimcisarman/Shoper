@@ -48,5 +48,41 @@ namespace Shoper.Admin.Controllers
                 return Json(new { success = false, error = ex.Message });
             }
         } 
+        public async Task<IActionResult> GetSoledProducts()
+        {
+            try
+            {
+                var value = await _orderServices.GetSoledProducts();
+                return Json(new { success = true, data = value });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+        public async Task<IActionResult> GetOrderStatus()
+        {
+            try
+            {
+                var value = await _orderServices.GetOrderStatusGrafiks();
+                return Json(new { success = true, data = value });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+        public async Task<IActionResult> GetSalesTrends()
+        {
+            try
+            {
+                var value = await _orderServices.GetSalesTrends();
+                return Json(new { success = true, data = value });
+            }
+            catch (Exception ex )
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
     }
 }

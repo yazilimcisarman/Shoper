@@ -304,6 +304,226 @@ namespace Shoper.Application.Usecasess.OrderServices
             return result;
         }
 
+        public async Task<List<DashboardOrderStatusDto>> GetOrderStatusGrafiks()
+        {
+            var values = await _repository.GetAllAsync();
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
+            var result = new List<DashboardOrderDto>();
+            foreach (var item in values)
+            {
+                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                var orderdto = new DashboardOrderDto
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalAmount = item.TotalAmount,
+                    OrderStatus = item.OrderStatus,
+                    //BillingAdress = item.BillingAdress,
+                    ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
+                    //PaymentMethod = item.PaymentMethod,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
+                    OrderItems = new List<DashboardOrderItemDto>(),
+                    UserId = item.UserId,
+                };
+                foreach (var item1 in item.OrderItems)
+                {
+                    var orderıtemproduct = await _repositoryProduct.GetByIdAsync(item1.ProductId);
+                    var category = await _repositoryCategory.GetByIdAsync(orderıtemproduct.CategoryId);
+                    var newcategory = new GetByIdCategoryDto
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.CategoryName,
+                    };
+                    var dashboardproduct = new DashboardProductDto
+                    {
+                        ProductId = orderıtemproduct.ProductId,
+                        ProductName = orderıtemproduct.ProductName,
+                        Description = orderıtemproduct.Description,
+                        Price = orderıtemproduct.Price,
+                        Stock = orderıtemproduct.Stock,
+                        ImageUrl = orderıtemproduct.ImageUrl,
+                        CategoryId = orderıtemproduct.CategoryId,
+                        Category = newcategory,
+                    };
+                    var orderıtemdto = new DashboardOrderItemDto
+                    {
+                        OrderId = item1.OrderId,
+                        ProductId = item1.ProductId,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                        OrderItemId = item1.OrderItemId,
+                        Product = dashboardproduct,
+
+                    };
+                    orderdto.OrderItems.Add(orderıtemdto);
+                }
+                result.Add(orderdto);
+            }
+            var result1 = result
+                .GroupBy(y => y.OrderStatus)
+                .Select(z => new DashboardOrderStatusDto
+                {
+                    Status = z.Key,
+                    Count = z.Key.Count()
+                }).ToList();
+
+            return result1;
+        }
+
+        public async Task<List<SalesTrendDto>> GetSalesTrends()
+        {
+            var values = await _repository.GetAllAsync();
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
+            var result = new List<DashboardOrderDto>();
+            foreach (var item in values)
+            {
+                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                var orderdto = new DashboardOrderDto
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalAmount = item.TotalAmount,
+                    OrderStatus = item.OrderStatus,
+                    //BillingAdress = item.BillingAdress,
+                    ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
+                    //PaymentMethod = item.PaymentMethod,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
+                    OrderItems = new List<DashboardOrderItemDto>(),
+                    UserId = item.UserId,
+                };
+                foreach (var item1 in item.OrderItems)
+                {
+                    var orderıtemproduct = await _repositoryProduct.GetByIdAsync(item1.ProductId);
+                    var category = await _repositoryCategory.GetByIdAsync(orderıtemproduct.CategoryId);
+                    var newcategory = new GetByIdCategoryDto
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.CategoryName,
+                    };
+                    var dashboardproduct = new DashboardProductDto
+                    {
+                        ProductId = orderıtemproduct.ProductId,
+                        ProductName = orderıtemproduct.ProductName,
+                        Description = orderıtemproduct.Description,
+                        Price = orderıtemproduct.Price,
+                        Stock = orderıtemproduct.Stock,
+                        ImageUrl = orderıtemproduct.ImageUrl,
+                        CategoryId = orderıtemproduct.CategoryId,
+                        Category = newcategory,
+                    };
+                    var orderıtemdto = new DashboardOrderItemDto
+                    {
+                        OrderId = item1.OrderId,
+                        ProductId = item1.ProductId,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                        OrderItemId = item1.OrderItemId,
+                        Product = dashboardproduct,
+
+                    };
+                    orderdto.OrderItems.Add(orderıtemdto);
+                }
+                result.Add(orderdto);
+            }
+            var result1 = result
+                .GroupBy(y => y.OrderDate.ToString("yyyy-MM"))
+                .Select(z => new SalesTrendDto
+                {
+                    Months = z.Key.Replace(".",""), 
+                    SalesCount = z.Sum(y => y.OrderItems.Sum(x => x.Quantity)).ToString(),
+                    TotalAmount = z.Sum(y => y.TotalAmount).ToString().Replace(",","."),
+                })
+                .OrderBy(a => a.Months).ToList();
+
+            return result1;
+        }
+
+        public async Task<List<DashboardSoledProductDto>> GetSoledProducts()
+        {
+            var values = await _repository.GetAllAsync();
+            var orderitem = await _repositoryOrderItem.GetAllAsync();
+            var result = new List<DashboardOrderDto>();
+            foreach (var item in values)
+            {
+                var ordercustomer = await _repositoryCustomer.GetByIdAsync(item.CustomerId);
+                var orderdto = new DashboardOrderDto
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalAmount = item.TotalAmount,
+                    OrderStatus = item.OrderStatus,
+                    //BillingAdress = item.BillingAdress,
+                    ShippingAdress = item.ShippingAdress,
+                    ShippingCityId = item.ShippingCityId,
+                    ShippingTownId = item.ShippingTownId,
+                    //PaymentMethod = item.PaymentMethod,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomerPhone = item.CustomerPhone,
+                    OrderItems = new List<DashboardOrderItemDto>(),
+                    UserId = item.UserId,
+                };
+                foreach (var item1 in item.OrderItems)
+                {
+                    var orderıtemproduct = await _repositoryProduct.GetByIdAsync(item1.ProductId);
+                    var category = await _repositoryCategory.GetByIdAsync(orderıtemproduct.CategoryId);
+                    var newcategory = new GetByIdCategoryDto
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.CategoryName,
+                    };
+                    var dashboardproduct = new DashboardProductDto
+                    {
+                        ProductId = orderıtemproduct.ProductId,
+                        ProductName = orderıtemproduct.ProductName,
+                        Description = orderıtemproduct.Description,
+                        Price = orderıtemproduct.Price,
+                        Stock = orderıtemproduct.Stock,
+                        ImageUrl = orderıtemproduct.ImageUrl,
+                        CategoryId = orderıtemproduct.CategoryId,
+                        Category = newcategory,
+                    };
+                    var orderıtemdto = new DashboardOrderItemDto
+                    {
+                        OrderId = item1.OrderId,
+                        ProductId = item1.ProductId,
+                        Quantity = item1.Quantity,
+                        TotalPrice = item1.TotalPrice,
+                        OrderItemId = item1.OrderItemId,
+                        Product = dashboardproduct,
+
+                    };
+                    orderdto.OrderItems.Add(orderıtemdto);
+                }
+                result.Add(orderdto);
+            }
+            var result1 = result
+                .SelectMany(x => x.OrderItems)
+                .GroupBy(y => y.Product.ProductName)
+                .Select(z => new DashboardSoledProductDto
+                {
+                    ProductName = z.Key,
+                    TotalSoled = z.Sum(y => y.Quantity)
+                })
+                .OrderByDescending(a => a.TotalSoled).Take(5).ToList();
+
+            return result1;
+        }
+
         public async Task<List<ResultTownDto>> GetTownByCityId(int cityId)
         {
             var values = await _orderRepository.GetTownByCityId(cityId);
